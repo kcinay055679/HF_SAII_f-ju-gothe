@@ -144,3 +144,7 @@ Risk: the tunnel makes the laptop, and anyone else on the tailnet, a member of `
 | ~18:45 | Tailscale on KL1, routes approved; KL2 checked over SSH |
 | ~18:58 | LM1 gateway fixed and hostname set over SSH |
 | ~19:10 | LM2 address fixed in the console (`sed`), finished over SSH; dmz0 → lan0 verified blocked |
+
+## Git on LM1 (2026-11-12)
+
+`git` 2.53 installed via apt (it wasn't on the VM). The project repo is cloned with the submodule to `~/workspace/HF_SAII_f-ju-gothe` over HTTPS, so no key is needed because both repos are public. `git config --global url."https://github.com/".insteadOf git@github.com:` makes the SSH URL in `.gitmodules` fetch over HTTPS. Pulling works. Pushing from LM1 would need credentials (a deploy key or token), which isn't set up on purpose for now.
