@@ -1,0 +1,3 @@
+[submodule "zeiterfassung"]
+	path = zeiterfassung
+	url = git@github.com:kcinay055679/SAII_Zeiterfassung.git
