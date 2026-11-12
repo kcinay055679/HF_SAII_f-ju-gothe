@@ -107,3 +107,16 @@ The IPFire console takes `root`, not `vmadmin` (that login was rejected). Only n
 - [ ] LM1 and LM2: identify which is which, then apply the netplan fix. LM2 moves to 192.168.120.60.
 - [ ] Test lan0 → dmz0 on 443 once something listens on LM2.
 - [ ] Mattermost: on LM2 or a central instance?
+
+## Remote access: Tailscale subnet router on KL1
+
+Setup (2026-11-12): KL1 runs Tailscale with `--ssh --advertise-routes=192.168.110.0/24,192.168.120.0/24` and IP forwarding on. The laptop reaches all VMs through KL1.
+
+Why this reaches `dmz0`: a DMZ protects the internal network *from* the DMZ, not the other way round. LF1 lets lan0 → dmz0 through (IPFire default GREEN → ORANGE allowed), because admins manage DMZ servers from inside. It blocks dmz0 → lan0 (ORANGE → GREEN), so a compromised DMZ server can't attack the internal network. The internet can't open connections into the DMZ either, except for explicitly published services.
+
+Risk: the tunnel makes the laptop, and anyone else on the tailnet, a member of `lan0`, passing LF1 as if it were inside. That is acceptable for a lab (allowed by the lecturer), but:
+
+- keep the tailnet to own devices, and enable key expiry
+- advertise only what's needed (e.g. `192.168.120.60/32` instead of the whole `dmz0`) if the full subnets aren't used
+- `sudo tailscale down` when not working on the project; remove it at the end of the semester
+- document it as a known risk in the hardening Abgabe (20.11, ZeroTrust)
