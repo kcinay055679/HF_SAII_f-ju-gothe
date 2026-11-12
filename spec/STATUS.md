@@ -32,7 +32,7 @@ From the team's Grober Ablaufplan (Tag 8). Status: ✅ done · 🟡 partial · �
 | 08 | Netzwerkplan v1 as `.drawio` + PDF (only the photo exists) | [tag08](tag08_2026-10-30/README.md) |
 | 09 | Recherche: A4 drafted, video scripted (needs recording) | [tag09](tag09_2026-11-06/README.md) |
 | 09 | Datenflussplan `.drawio`: drafted, needs review + export | [tag09](tag09_2026-11-06/README.md) |
-| 09 | Netzwerkplan v3 `.drawio`: v2 source recovered, v3 waits on `dmz0` IPs | [tag09](tag09_2026-11-06/README.md) |
+| 09 | Netzwerkplan v3 `.drawio`: drafted, needs review + export | [tag09](tag09_2026-11-06/README.md) |
 
 ## Open decisions
 
