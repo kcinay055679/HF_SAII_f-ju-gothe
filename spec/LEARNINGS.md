@@ -2,6 +2,10 @@
 
 Things we noticed along the way. Newest first. Each entry names the Tag it came up on and what it affects.
 
+## 2026-11-12 · Tag 09 · The LMs have only 1 vCPU
+
+LM1 and LM2 have 1 vCPU, 15 GiB RAM, 63 GB disk each. The full stack on LM2 (Kubernetes, Argo CD, Prometheus, Grafana, ELK, app) will be CPU-bound. Prefer lightweight choices (k3s, Loki over ELK, small replica counts), or ask the lecturer for more vCPUs.
+
 ## 2026-11-12 · Tag 09 · The VM gateway is LF1 on .4, not .1 or .2
 
 No VM had internet because every one pointed at a gateway that doesn't exist (.1 from the banner, .2 from the Kali guide). LF1 answers on 192.168.110.4 and 192.168.120.4. Also, both Ubuntu VMs had 192.168.110.60, so LM2 sits in the wrong zone. Problem, fix and IP plan: [NETWORK.md](NETWORK.md).

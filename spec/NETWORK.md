@@ -20,7 +20,7 @@ Last verified: 2026-11-12
    lan0 192.168.110.0/24        dmz0 192.168.120.0/24
    Entwicklungsnetz             Kundennetz
    (smartlearn.lan)             (smartlearn.dmz)
-   ├─ LM1 li264-vmLM1  .60      ├─ LM2 li264-vmLM2  ? (see below)
+   ├─ LM1 li264-vmLM1  .60      ├─ LM2 li264-vmLM2  .60
    └─ KL1 li261-vmKL1  .70      └─ KL2 li261-vmKL2  .70
 ```
 
@@ -32,7 +32,7 @@ Last verified: 2026-11-12
 | KL1 `li261-vmKL1.smartlearn.lan` | Kali | lan0 | 192.168.110.70/24 | 00:50:56:00:24:47 | 192.168.110.4 | 192.168.110.4, 9.9.9.9 | ✅ fixed, internet works |
 | KL2 `li261-vmKL2` | Kali | dmz0 | 192.168.120.70/24 | 00:50:56:00:24:46 | 192.168.120.4 | 192.168.120.4, 9.9.9.9 | ✅ fixed, internet works |
 | LM1 `li264-vmLM1` | Ubuntu 26.04 | lan0 | 192.168.110.60/24 | 00:50:56:00:24:3d | 192.168.110.4 | 192.168.110.4, 9.9.9.9 | ✅ fixed, internet works, hostname set |
-| LM2 `li264-vmLM2` | Ubuntu 26.04 | dmz0 | **192.168.110.60/24 (wrong zone)**, target 192.168.120.60/24 | 00:50:56:00:24:3e | 192.168.110.1 (banner) | 192.168.110.1 (banner) | ❌ wrong subnet, not fixed yet |
+| LM2 `li264-vmLM2` | Ubuntu 26.04 | dmz0 | 192.168.120.60/24 | 00:50:56:00:24:3e | 192.168.120.4 | 192.168.120.4, 9.9.9.9 | ✅ fixed, internet works, hostname set |
 
 The LM gateway/DNS values come from the login banners. They may not be the live config: KL1's banner showed .1 while its real route pointed at .2.
 
@@ -97,14 +97,14 @@ They differ only in their MAC (`…:24:3d` and `…:24:3e`, readable from the IP
 | lan0 → internet (ICMP, HTTPS) | LM1 push to GitHub, package installs | ✅ works from KL1 |
 | dmz0 → internet (HTTPS) | Argo CD on LM2 reading GitHub, image pull from the registry | ✅ works from KL2 |
 | lan0 → dmz0 | KL1 tests against the Ingress on LM2, SSH into dmz0 | ✅ verified 2026-11-12: KL1 pings 192.168.120.4 and KL2, KL2's port 22 is open (443 untested until something listens) |
-| dmz0 → lan0 | not needed | should stay blocked. IPFire blocks ORANGE → GREEN by default |
+| dmz0 → lan0 | not needed | ✅ verified blocked: LM2 can't ping KL1 or open LM1:22 |
 | internet → dmz0 | not needed for the course | no port forwarding planned |
 
 The IPFire console takes `root`, not `vmadmin` (that login was rejected). Only needed if LF1 itself ever has to be checked.
 
 ## Open
 
-- [ ] LM1 and LM2: identify which is which, then apply the netplan fix. LM2 moves to 192.168.120.60.
+- [x] LM1 and LM2: identified, netplan fixed, hostnames set (2026-11-12)
 - [ ] Test lan0 → dmz0 on 443 once something listens on LM2.
 - [ ] Mattermost: on LM2 or a central instance?
 
@@ -142,3 +142,19 @@ LM1 hostname renamed 2026-11-12 from the clone default `li264-vmLM` to `li264-vm
 LM2 minimal-typing fix (it's a clone, so `00-eth0.yaml` is the same as LM1's original):
 `sudo sed -i 's/110\.1\b/120.4/;s/110/120/;s/\.lan/.dmz/' /etc/netplan/00-eth0.yaml && sudo netplan apply`
 This turns gateway/DNS 192.168.110.1 into 192.168.120.4, the address 192.168.110.60 into 192.168.120.60, and the search domain `smartlearn.lan` into `smartlearn.dmz`.
+
+LM2 fixed 2026-11-12. The user ran the one-line `sed` in the console, then Claude finished over SSH:
+- added 9.9.9.9 as second DNS server and removed a trailing space after the address (backup in `/root/netplan-backup-*`)
+- hostname `li264-vmLM2`, `/etc/hosts` → `li264-vmLM2.smartlearn.dmz`
+- verified: default via 192.168.120.4, ping 9.9.9.9 OK, github.com resolves, HTTPS 200, sshd active
+
+All five VMs now have working networking.
+
+## VM resources
+
+| VM | vCPU | RAM | Disk / |
+| --- | --- | --- | --- |
+| LM1 | 1 | 15 GiB | 63 GB |
+| LM2 | 1 | 15 GiB | 63 GB, 58 GB free |
+
+**Only 1 vCPU each.** k3s/minikube, Argo CD, Prometheus, Grafana, ELK and the app all on LM2 will be CPU-bound. RAM is fine. Elasticsearch is the heaviest; Loki is the lighter fallback.

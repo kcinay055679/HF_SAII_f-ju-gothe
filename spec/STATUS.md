@@ -17,7 +17,7 @@ From the team's Grober Ablaufplan (Tag 8). Status: ✅ done · 🟡 partial · �
 | 05 | Lokal testen | 🟡 | Unit tests + smoke test exist. No Kali GUI/security tests |
 | 06 | Push/Pull & CI aufbauen | ⬜ | |
 | 07 | Images in Registry speichern | 🟡 | Local k3d registry only, no shared registry |
-| 08 | LM2 / Kubernetes bereitstellen | ⬜ | LM2 is in the wrong subnet and has no internet yet. Fix in [NETWORK.md](NETWORK.md) |
+| 08 | LM2 / Kubernetes bereitstellen | ⬜ | LM2 network ready (192.168.120.60, internet, SSH via Tailscale). Only 1 vCPU, see [NETWORK.md](NETWORK.md). Kubernetes not installed yet |
 | 09 | Deployment durchführen (Argo CD) | ⬜ | |
 | 10 | Kundenseitige Tests | ⬜ | |
 | 11 | Monitoring einrichten | ⬜ | |
