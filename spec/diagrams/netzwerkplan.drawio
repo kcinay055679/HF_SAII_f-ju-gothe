@@ -1,0 +1,177 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="02 Projekt-Netzwerkplan (Soll)" id="1aEBz8SZjuHqEBEXO2u9">
+    <mxGraphModel dx="2581" dy="1257" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1230" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="n2" parent="1" style="rounded=1;fillColor=#FDE047;strokeColor=none;" value="" vertex="1">
+          <mxGeometry height="74" width="1720" x="40" y="28" as="geometry" />
+        </mxCell>
+        <mxCell id="n3" parent="1" style="text;html=1;strokeColor=none;fillColor=none;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=29;fontColor=#0F172A;fontStyle=1;" value="NETZWERKPLAN | SAII – Zeiterfassung" vertex="1">
+          <mxGeometry height="45" width="1570" x="64" y="39" as="geometry" />
+        </mxCell>
+        <mxCell id="n4" parent="1" style="text;html=1;strokeColor=none;fillColor=none;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=16;fontColor=#475569;fontStyle=0;" value="Team f_you_goethe&amp;nbsp;" vertex="1">
+          <mxGeometry height="34" width="1660" x="50" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="n5" parent="1" style="rounded=1;arcSize=7;fillColor=#F8FAFC;strokeColor=#64748B;strokeWidth=2;dashed=1;dashPattern=7 5;" value="" vertex="1">
+          <mxGeometry height="830" width="405" x="45" y="168" as="geometry" />
+        </mxCell>
+        <mxCell id="n6" parent="1" style="text;html=1;strokeColor=none;fillColor=none;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=20;fontColor=#0F172A;fontStyle=1;" value="ENTWICKLUNG / TEST (LM1 + Kali)" vertex="1">
+          <mxGeometry height="32" width="375" x="60" y="174" as="geometry" />
+        </mxCell>
+        <mxCell id="n7" parent="1" style="rounded=1;arcSize=7;fillColor=#F8FAFC;strokeColor=#64748B;strokeWidth=2;dashed=1;dashPattern=7 5;" value="" vertex="1">
+          <mxGeometry height="830" width="485" x="470" y="168" as="geometry" />
+        </mxCell>
+        <mxCell id="n8" parent="1" style="text;html=1;strokeColor=none;fillColor=none;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=20;fontColor=#0F172A;fontStyle=1;" value="QUELLCODE / BUILD-DIENSTE" vertex="1">
+          <mxGeometry height="32" width="455" x="485" y="174" as="geometry" />
+        </mxCell>
+        <mxCell id="n9" parent="1" style="rounded=1;arcSize=7;fillColor=#F8FAFC;strokeColor=#64748B;strokeWidth=2;dashed=1;dashPattern=7 5;" value="" vertex="1">
+          <mxGeometry height="830" width="775" x="980" y="168" as="geometry" />
+        </mxCell>
+        <mxCell id="n10" parent="1" style="text;html=1;strokeColor=none;fillColor=none;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=20;fontColor=#0F172A;fontStyle=1;" value="KUNDENUMGEBUNG / LM2" vertex="1">
+          <mxGeometry height="32" width="745" x="995" y="174" as="geometry" />
+        </mxCell>
+        <mxCell id="n11" parent="1" style="rounded=1;arcSize=12;html=1;whiteSpace=wrap;fillColor=#FEE2E2;strokeColor=#DC2626;strokeWidth=1.7;fontFamily=Arial;fontSize=15;fontColor=#7F1D1D;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="KALI  |  li261-vmKL1&#xa;Tests / GUI / Nmap&#xa;Smartlearn: lan0 (sichtbar)" vertex="1">
+          <mxGeometry height="95" width="320" x="80" y="255" as="geometry" />
+        </mxCell>
+        <mxCell id="n12" parent="1" style="rounded=1;arcSize=12;html=1;whiteSpace=wrap;fillColor=#1E293B;strokeColor=#1E293B;strokeWidth=1.7;fontFamily=Arial;fontSize=15;fontColor=#FFFFFF;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="LM1  |  li264-vmLM1&#xa;Ubuntu / Docker / Minikube (geplant)&#xa;Smartlearn: lan0 (sichtbar)" vertex="1">
+          <mxGeometry height="95" width="320" x="80" y="425" as="geometry" />
+        </mxCell>
+        <mxCell id="n13" parent="1" style="rounded=1;arcSize=12;html=1;whiteSpace=wrap;fillColor=#FEF08A;strokeColor=#A16207;strokeWidth=1.7;fontFamily=Arial;fontSize=15;fontColor=#1F2937;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Zeiterfassung – DEV&#xa;Anwendung: 5000/TCP (intern)" vertex="1">
+          <mxGeometry height="76" width="310" x="85" y="565" as="geometry" />
+        </mxCell>
+        <mxCell id="n14" parent="1" style="rounded=1;arcSize=12;html=1;whiteSpace=wrap;fillColor=#E0F2FE;strokeColor=#0284C7;strokeWidth=1.7;fontFamily=Arial;fontSize=15;fontColor=#0F172A;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="PostgreSQL – DEV&#xa;5432/TCP (intern)" vertex="1">
+          <mxGeometry height="76" width="310" x="85" y="675" as="geometry" />
+        </mxCell>
+        <mxCell id="e15" edge="1" parent="1" source="n11" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#334155;strokeWidth=2;fontSize=13;fontColor=#334155;labelBackgroundColor=#FFFFFF;dashed=1;strokeColor=#DC2626;" target="n12" value="Testzugriff / HTTP(S)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e16" edge="1" parent="1" source="n12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#334155;strokeWidth=2;fontSize=13;fontColor=#334155;labelBackgroundColor=#FFFFFF;" target="n13" value="lokaler Build / Test">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e17" edge="1" parent="1" source="n13" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#334155;strokeWidth=2;fontSize=13;fontColor=#334155;labelBackgroundColor=#FFFFFF;" target="n14" value="SQL 5432">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n18" parent="1" style="rounded=1;arcSize=12;html=1;whiteSpace=wrap;fillColor=#1E293B;strokeColor=#1E293B;strokeWidth=1.7;fontFamily=Arial;fontSize=15;fontColor=#FFFFFF;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="GIT-REPOSITORY&#xa;Quellcode, Dockerfile, Manifeste,&#xa;Helm-/Argo-Konfiguration" vertex="1">
+          <mxGeometry height="115" width="405" x="505" y="255" as="geometry" />
+        </mxCell>
+        <mxCell id="n19" parent="1" style="rounded=1;arcSize=12;html=1;whiteSpace=wrap;fillColor=#FEF08A;strokeColor=#A16207;strokeWidth=1.7;fontFamily=Arial;fontSize=15;fontColor=#1F2937;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="CI-PIPELINE (geplant)&#xa;Build • Test • Scan" vertex="1">
+          <mxGeometry height="82" width="405" x="505" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="n20" parent="1" style="rounded=1;arcSize=12;html=1;whiteSpace=wrap;fillColor=#1E293B;strokeColor=#1E293B;strokeWidth=1.7;fontFamily=Arial;fontSize=15;fontColor=#FFFFFF;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="CONTAINER REGISTRY&#xa;Versionierte Images" vertex="1">
+          <mxGeometry height="86" width="405" x="505" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="e21" edge="1" parent="1" source="n12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#334155;strokeWidth=2;fontSize=13;fontColor=#334155;labelBackgroundColor=#FFFFFF;" target="n18" value="Push / Pull – HTTPS 443">
+          <mxGeometry relative="1" x="-0.561" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e22" edge="1" parent="1" source="n18" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#334155;strokeWidth=2;fontSize=13;fontColor=#334155;labelBackgroundColor=#FFFFFF;" target="n19" value="Trigger / Quellcode">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e23" edge="1" parent="1" source="n19" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#334155;strokeWidth=2;fontSize=13;fontColor=#334155;labelBackgroundColor=#FFFFFF;" target="n20" value="Image Push – HTTPS 443">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n24" parent="1" style="rounded=1;arcSize=12;html=1;whiteSpace=wrap;fillColor=#EDE9FE;strokeColor=#7C3AED;strokeWidth=1.7;fontFamily=Arial;fontSize=15;fontColor=#3B0764;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="ARGO CD / GitOps&#xa;liest Manifeste aus Git&#xa;HTTPS 443" vertex="1">
+          <mxGeometry height="92" width="340" x="1005" y="245" as="geometry" />
+        </mxCell>
+        <mxCell id="n25" parent="1" style="rounded=1;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#475569;strokeWidth=2;" value="" vertex="1">
+          <mxGeometry height="405" width="718" x="1004" y="375" as="geometry" />
+        </mxCell>
+        <mxCell id="n26" parent="1" style="text;html=1;strokeColor=none;fillColor=none;whiteSpace=wrap;align=left;verticalAlign=middle;fontFamily=Arial;fontSize=19;fontColor=#0F172A;fontStyle=1;" value="KUBERNETES-CLUSTER AUF LM2" vertex="1">
+          <mxGeometry height="38" width="590" x="1021" y="386" as="geometry" />
+        </mxCell>
+        <mxCell id="n27" parent="1" style="rounded=1;arcSize=12;html=1;whiteSpace=wrap;fillColor=#1E293B;strokeColor=#1E293B;strokeWidth=1.7;fontFamily=Arial;fontSize=15;fontColor=#FFFFFF;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Ingress / Service&#xa;HTTPS 443 → App-Port 5000" vertex="1">
+          <mxGeometry height="75" width="305" x="1025" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="n28" parent="1" style="rounded=1;arcSize=12;html=1;whiteSpace=wrap;fillColor=#FEF08A;strokeColor=#A16207;strokeWidth=1.7;fontFamily=Arial;fontSize=15;fontColor=#1F2937;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="Zeiterfassung&#xa;App-Pods (1–2 Replikas)" vertex="1">
+          <mxGeometry height="80" width="305" x="1025" y="565" as="geometry" />
+        </mxCell>
+        <mxCell id="n29" parent="1" style="rounded=1;arcSize=12;html=1;whiteSpace=wrap;fillColor=#E0F2FE;strokeColor=#0284C7;strokeWidth=1.7;fontFamily=Arial;fontSize=15;fontColor=#0F172A;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="PostgreSQL + PVC&#xa;5432/TCP nur intern" vertex="1">
+          <mxGeometry height="75" width="305" x="1025" y="680" as="geometry" />
+        </mxCell>
+        <mxCell id="n30" parent="1" style="rounded=1;arcSize=12;html=1;whiteSpace=wrap;fillColor=#DCFCE7;strokeColor=#16A34A;strokeWidth=1.7;fontFamily=Arial;fontSize=15;fontColor=#14532D;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="PROMETHEUS&#xa;Metriken / Scrape" vertex="1">
+          <mxGeometry height="72" width="320" x="1375" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="n31" parent="1" style="rounded=1;arcSize=12;html=1;whiteSpace=wrap;fillColor=#DCFCE7;strokeColor=#16A34A;strokeWidth=1.7;fontFamily=Arial;fontSize=15;fontColor=#14532D;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="GRAFANA&#xa;Dashboards / HTTPS 443*" vertex="1">
+          <mxGeometry height="80" width="150" x="1375" y="548" as="geometry" />
+        </mxCell>
+        <mxCell id="n32" parent="1" style="rounded=1;arcSize=12;html=1;whiteSpace=wrap;fillColor=#DCFCE7;strokeColor=#16A34A;strokeWidth=1.7;fontFamily=Arial;fontSize=15;fontColor=#14532D;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="ELK / LOGGING*&#xa;Logs" vertex="1">
+          <mxGeometry height="80" width="150" x="1545" y="548" as="geometry" />
+        </mxCell>
+        <mxCell id="n33" parent="1" style="rounded=1;arcSize=12;html=1;whiteSpace=wrap;fillColor=#DCFCE7;strokeColor=#16A34A;strokeWidth=1.7;fontFamily=Arial;fontSize=15;fontColor=#14532D;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="ALERTMANAGER&#xa;Regeln / Benachrichtigung" vertex="1">
+          <mxGeometry height="75" width="320" x="1375" y="680" as="geometry" />
+        </mxCell>
+        <mxCell id="e34" edge="1" parent="1" source="n18" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#334155;strokeWidth=2;fontSize=13;fontColor=#334155;labelBackgroundColor=#FFFFFF;" target="n24" value="Git lesen / HTTPS 443">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="935" y="205" />
+              <mxPoint x="1150" y="205" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e35" edge="1" parent="1" source="n24" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#334155;strokeWidth=2;fontSize=13;fontColor=#334155;labelBackgroundColor=#FFFFFF;strokeColor=#7C3AED;" target="n27" value="Sync / Deploy">
+          <mxGeometry relative="1" x="-0.6017" y="-5" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e36" edge="1" parent="1" source="n20" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#334155;strokeWidth=2;fontSize=13;fontColor=#334155;labelBackgroundColor=#FFFFFF;" target="n28" value="Image Pull / HTTPS 443">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="965" y="620" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e37" edge="1" parent="1" source="n27" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#334155;strokeWidth=2;fontSize=13;fontColor=#334155;labelBackgroundColor=#FFFFFF;" target="n28" value="HTTP intern 5000">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e38" edge="1" parent="1" source="n28" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#334155;strokeWidth=2;fontSize=13;fontColor=#334155;labelBackgroundColor=#FFFFFF;" target="n29" value="SQL 5432">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e39" edge="1" parent="1" source="n28" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#334155;strokeWidth=2;fontSize=13;fontColor=#334155;labelBackgroundColor=#FFFFFF;strokeColor=#16A34A;" target="n30" value="Metriken /metrics*">
+          <mxGeometry relative="1" x="-0.2079" y="-30" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="1535" y="620" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e40" edge="1" parent="1" source="n28" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#334155;strokeWidth=2;fontSize=13;fontColor=#334155;labelBackgroundColor=#FFFFFF;strokeColor=#16A34A;" target="n32" value="Logs*">
+          <mxGeometry relative="1" x="-0.4324" y="-45" as="geometry">
+            <mxPoint x="3" as="offset" />
+            <Array as="points">
+              <mxPoint x="1437.5" y="620" />
+              <mxPoint x="1437.5" y="660" />
+              <mxPoint x="1620" y="660" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e41" edge="1" parent="1" source="n30" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#334155;strokeWidth=2;fontSize=13;fontColor=#334155;labelBackgroundColor=#FFFFFF;" target="n31" value="PromQL">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e42" edge="1" parent="1" source="n30" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#334155;strokeWidth=2;fontSize=13;fontColor=#334155;labelBackgroundColor=#FFFFFF;" target="n33" value="Alarmregeln">
+          <mxGeometry relative="1" x="0.3671" y="-95" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n43" parent="1" style="rounded=1;arcSize=12;html=1;whiteSpace=wrap;fillColor=#1E293B;strokeColor=#1E293B;strokeWidth=1.7;fontFamily=Arial;fontSize=15;fontColor=#FFFFFF;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="BENUTZER / ADMIN&#xa;Browser → HTTPS 443" vertex="1">
+          <mxGeometry height="100" width="295" x="1020" y="835" as="geometry" />
+        </mxCell>
+        <mxCell id="n44" parent="1" style="rounded=1;arcSize=12;html=1;whiteSpace=wrap;fillColor=#EDE9FE;strokeColor=#7C3AED;strokeWidth=1.7;fontFamily=Arial;fontSize=15;fontColor=#3B0764;fontStyle=1;align=center;verticalAlign=middle;spacing=8;" value="MATTERMOST*&#xa;Alarmkanal fürs Betriebsteam&#xa;Webhook / HTTPS 443" vertex="1">
+          <mxGeometry height="100" width="315" x="1400" y="835" as="geometry" />
+        </mxCell>
+        <mxCell id="e45" edge="1" parent="1" source="n43" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#334155;strokeWidth=2;fontSize=13;fontColor=#334155;labelBackgroundColor=#FFFFFF;" target="n27" value="HTTPS 443">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="996" y="814" />
+              <mxPoint x="990" y="485" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e46" edge="1" parent="1" source="n33" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#334155;strokeWidth=2;fontSize=13;fontColor=#334155;labelBackgroundColor=#FFFFFF;dashed=1;strokeColor=#DC2626;" target="n44" value="Webhook / Alert – HTTPS 443">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
