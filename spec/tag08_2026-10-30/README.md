@@ -38,9 +38,11 @@ Group work is allowed, but every member has to rebuild everything in their own e
 - [ ] Netzwerkplan v1 as `.drawio` + PDF (superseded by v2 on Tag 09)
 - [ ] Datenflussplan (not in `abgaben/`)
 - [x] Grober Ablaufplan
-- [ ] Git set up for the team (only a local repo so far, see [STATUS](../STATUS.md) WP 02)
+- [~] Git set up for the team: GitHub repo `HF_SAII_f-ju-gothe` exists, members still need write access
 
 ## Ergebnisse
+
+Remaining work is specified in [spec.md](spec.md).
 
 [`abgaben/tag08_2026-10-30/`](../../abgaben/tag08_2026-10-30/)
 

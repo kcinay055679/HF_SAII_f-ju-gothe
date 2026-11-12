@@ -11,7 +11,7 @@ From the team's Grober Ablaufplan (Tag 8). Status: ✅ done · 🟡 partial · �
 | Nr. | Work package | Status | Where we stand |
 | --- | --- | --- | --- |
 | 01 | Anforderungen & Planung | ✅ | Ablaufplan submitted on Tag 8, [spec](zeiterfassung-spec.md) written |
-| 02 | Git-Repository aufbauen | 🟡 | Local root repo with the app history imported. No remote yet, no team access |
+| 02 | Git-Repository aufbauen | 🟡 | GitHub `HF_SAII_f-ju-gothe` with the app history imported. Team members still need write access |
 | 03 | LM1 vorbereiten | 🟡 | k3d + registry setup works locally. No PostgreSQL, not yet set up on the actual LM1 |
 | 04 | Zeiterfassung entwickeln | 🟡 | App v1.4 (Persons, Actions, Status board). Missing: login, Admin area, PostgreSQL, `/metrics`, structured logs |
 | 05 | Lokal testen | 🟡 | Unit tests + smoke test exist. No Kali GUI/security tests |
@@ -38,7 +38,7 @@ From the team's Grober Ablaufplan (Tag 8). Status: ✅ done · 🟡 partial · �
 
 - Container port: 5000 (team plans, submitted network plan) vs 8080 (app v1.4). See [LEARNINGS](LEARNINGS.md).
 - Cluster on LM1/LM2: k3d (ADR-0001) vs whatever the Smartlearn project environment provides.
-- Git remote / registry product: decided once it's known what Argo CD on LM2 can reach.
+- Registry product, and whether Argo CD on LM2 can reach GitHub.
 - ELK vs Loki for logs, depends on LM2 memory.
 
 ## Roadmap

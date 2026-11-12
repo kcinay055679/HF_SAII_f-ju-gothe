@@ -44,7 +44,7 @@ Understand GitOps with Argo CD, CI vs CD, and monitoring with Prometheus, Grafan
 
 ## Working files
 
-[`work/`](work/) holds drafts for this Tag (Recherche notes, video script). Final versions go to `abgaben/tag09_2026-11-06/`.
+Remaining work is specified in [spec.md](spec.md). [`work/`](work/) holds drafts for this Tag (Recherche notes, video script). Final versions go to `abgaben/tag09_2026-11-06/`.
 
 ## Erkenntnisse
 
