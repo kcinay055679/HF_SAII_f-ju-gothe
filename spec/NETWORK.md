@@ -78,6 +78,16 @@ network:
 
 For LM2 (dmz0) use `addresses: [192.168.120.60/24]`, `via: 192.168.120.4`, DNS `192.168.120.4, 9.9.9.9` and `search: [smartlearn.dmz]`. 192.168.120.60 is our choice to mirror KL2's .70; check it's free first (`ping 192.168.120.60` from KL2 should get no answer). To tell the two VMs apart, `hostnamectl` on each shows the full hostname.
 
+## The two Ubuntu VMs are clones
+
+Screenshots `13` and `14` show both Ubuntu VMs with identical config:
+- **hostname:** `li264-vmLM.smartlearn.lan`, with no 1 or 2
+- **eth0:** UP, 192.168.110.60/24, default via 192.168.110.1
+- **eth1:** DOWN
+- **netplan files:** `00-eth0.yaml`, `01-eth1.yaml`
+
+They differ only in their MAC (`…:24:3d` and `…:24:3e`, readable from the IPv6 link-local address). The hostname can't tell them apart, so the test is which one reaches KL1 (192.168.110.70). KL1 only lives in `lan0`, so the VM that gets an answer is LM1. Once identified, set the hostnames to `li264-vmLM1` and `li264-vmLM2`.
+
 ## Firewall (LF1) behaviour
 
 | Flow | Needed for | Status |
