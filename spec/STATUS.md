@@ -17,7 +17,7 @@ From the team's Grober Ablaufplan (Tag 8). Status: ✅ done · 🟡 partial · �
 | 05 | Lokal testen | 🟡 | Unit tests + smoke test exist. No Kali GUI/security tests |
 | 06 | Push/Pull & CI aufbauen | ⬜ | |
 | 07 | Images in Registry speichern | 🟡 | Local k3d registry only, no shared registry |
-| 08 | LM2 / Kubernetes bereitstellen | ⬜ | Waiting on the Smartlearn project environment details |
+| 08 | LM2 / Kubernetes bereitstellen | ⬜ | LM2 = `li264-vmLM2` in `dmz0` behind firewall LF1. IPs still unknown |
 | 09 | Deployment durchführen (Argo CD) | ⬜ | |
 | 10 | Kundenseitige Tests | ⬜ | |
 | 11 | Monitoring einrichten | ⬜ | |

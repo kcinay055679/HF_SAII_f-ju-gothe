@@ -83,7 +83,9 @@ The lecturer asked for three things on Tag 09, and the team only has a PDF of th
     - Mattermost 8065 or central
 18. As the lecturer, I want scrape arrows to point from Prometheus to its targets, so that the pull model is shown correctly.
 19. As the lecturer, I want the alert path Alertmanager → Mattermost webhook (HTTPS 443) drawn, so that the alarm route is visible.
-20. As the lecturer, I want the Kali IP (192.168.110.70/24, gateway 192.168.110.2) and LM1 (192.168.110.60) on the plan, so that the Entwicklungsnetz is complete.
+20. As the lecturer, I want the KL1 IP (192.168.110.70/24, gateway 192.168.110.2) and LM1 (192.168.110.60) on the plan, so that the Entwicklungsnetz is complete.
+20a. As the lecturer, I want firewall LF1 and the second Kali KL2 in `dmz0` on the plan, so that it matches the Smartlearn environment.
+20b. As the lecturer, I want every flow between `lan0`, `dmz0` and GitHub drawn through LF1 with its port, so that the needed firewall openings are visible.
 21. As the lecturer, I want the plan adapted to the new Smartlearn project environment (hostnames, IPs, networks), so that it matches the machines we'll actually use.
 22. As the lecturer, I want trust boundaries between Entwicklungsnetz, Zentrale Dienste and Kundennetz marked, so that crossing flows are obvious.
 23. As the lecturer, I want the asterisks in v2 (`*` = assumption) kept and explained in a legend, so that open assumptions stay visible.
@@ -122,10 +124,11 @@ The lecturer asked for three things on Tag 09, and the team only has a PDF of th
   - every Abgabe is a PDF export, and the `.drawio` itself is submitted too
   - the network plan version is in the title block (v3)
 - **Regenerating v2:** rebuild it from the PDF with the same three-column layout and labels, commit that as the v2 baseline first, then make the v3 changes in a separate commit. That way the diff shows what changed for Tag 09.
-- **Smartlearn project environment:**
-  - details (hostnames, IPs, networks of the new LM2 etc.) are behind the Smartlearn login, so they can't be gathered from the repo
-  - a team member reads them there and notes them in `work/`; until then the plan marks them as assumptions
-  - known so far: LM1 = `li264-vmLM1.smartlearn.lan` (15 GiB RAM, 63 GB disk), Kali = `li261-vmKL1`
+- **Smartlearn project environment:** taken from the lecturer's Smartlearn network plan, summarised in `work/smartlearn-umgebung.md`.
+  - three zones: `lan0` (Entwicklungsnetz: LM1, KL1), `dmz0` (Kundennetz: LM2, KL2) and `wan0` (outside)
+  - firewall LF1 (`if229-vmLF1`) joins the three zones
+  - v3 draws every cross-zone flow through LF1, adds KL2, and puts GitHub (Git, likely the registry too) behind `wan0`
+  - IPs of `dmz0`/LM2/KL2/LF1 and the firewall rules are still unknown and stay marked as assumptions
 - **Port:** a new ADR decides 8080 or 5000. Recommendation: 8080, because the app, its probes, the Makefile, the smoke test and the course reference app all use it; the plans are cheaper to change than the app. The Ablaufplan stays as submitted.
 
 ## Testing Decisions

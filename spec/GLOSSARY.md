@@ -55,6 +55,18 @@ The environment for development and testing, one replica.
 **Prod**:
 The customer-facing environment, several replicas, image pulled from a registry.
 
+**Entwicklungsnetz**:
+The developer zone, `lan0` on the Smartlearn plan, holding LM1 and KL1.
+_Avoid_: LAN, dev network
+
+**Kundennetz**:
+The customer zone, `dmz0` on the Smartlearn plan, holding LM2 and KL2.
+_Avoid_: DMZ (in prose), prod network
+
+**LF1**:
+The firewall/router between Entwicklungsnetz, Kundennetz and the outside (`wan0`). Every cross-zone flow passes it.
+_Avoid_: router, gateway
+
 **LM1**:
 The developer machine in the Entwicklungsnetz, where Dev runs.
 _Avoid_: dev VM, local machine
@@ -64,7 +76,7 @@ The customer machine in the Kundennetz, where Prod and the monitoring run.
 _Avoid_: customer VM, production server
 
 **Kali**:
-The tester machine used for GUI, functional and security tests against LM1 and LM2.
+A tester machine for GUI, functional and security tests. KL1 sits in the Entwicklungsnetz, KL2 in the Kundennetz; "Kali" alone means either.
 
 **Commit-to-Alert**:
 The full delivery and operations chain: commit on LM1, Git, CI, registry, GitOps deployment on LM2, telemetry, alert rule, Mattermost message.

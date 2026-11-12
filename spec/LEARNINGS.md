@@ -2,6 +2,10 @@
 
 Things we noticed along the way. Newest first. Each entry names the Tag it came up on and what it affects.
 
+## 2026-11-12 · Tag 09 · The Smartlearn environment has a firewall and a DMZ
+
+The lecturer's Smartlearn plan has three zones: `lan0` (LM1, KL1), `dmz0` (LM2, KL2) and `wan0`. Firewall `if229-vmLF1` connects them. Network plan v2 drew no firewall and no KL2. Every cross-zone flow (LM1 → GitHub, LM2 → GitHub/registry, KL1 → LM2) needs an opening on LF1. The IPs are not on the plan. Details: [tag09 work](tag09_2026-11-06/work/smartlearn-umgebung.md).
+
 ## 2026-11-12 · Tag 09 · The network plan v2 source is lost
 
 Only `f_you_goethe-Netzwerkplan.drawio.pdf` exists. Before changing the network plan again, regenerate the `.drawio` from the PDF into [diagrams/](diagrams/) and edit only that from then on. Every Abgabe gets a PDF exported from it.

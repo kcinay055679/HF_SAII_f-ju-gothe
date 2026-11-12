@@ -46,10 +46,10 @@ The team handed in the hand-drawn Netzwerkplan v1 and the Grober Ablaufplan on T
 ## Implementation Decisions
 
 - **One file:** a single Datenflussplan `.drawio` in `spec/diagrams/`, exported to PDF into `abgaben/tag09_2026-11-06/`. The Tag 08 README links to it and marks the item as covered by the Tag 09 Abgabe.
-- **Three lanes, left to right**, matching the network plan v2 layout:
-  - Entwicklung/Test (LM1, Kali)
-  - Zentrale Dienste (Git, CI, registry)
-  - Kunde/LM2 (Argo CD, cluster, monitoring, Mattermost)
+- **Three lanes, left to right**, matching the Smartlearn zones:
+  - Entwicklungsnetz `lan0` (LM1, KL1)
+  - outside `wan0` (GitHub: Git, CI, registry), reached through firewall LF1
+  - Kundennetz `dmz0` (LM2 with Argo CD, cluster, monitoring, Mattermost; KL2)
 - **Release flow:**
   - LM1 push → Git (HTTPS 443)
   - Git triggers CI
@@ -104,5 +104,5 @@ Further checks:
 
 ## Further Notes
 
-- **Class unknown:** the class (26a or 26c) isn't recorded anywhere in the repo. It's needed for the file name `Team-Name_Klasse_SAII`.
+- **Class:** 26a, so file names are `f_you_goethe_26a_SAII.<ext>` and `f_you_goethe_26a_SAII_AblaufProjekt.<ext>`.
 - **Lateness:** the Tag 08 Datenflussplan is overdue. Submitting it together with the Tag 09 version is a judgement call. If the lecturer wants it separately, export the same file a second time into `abgaben/tag08_2026-10-30/`.

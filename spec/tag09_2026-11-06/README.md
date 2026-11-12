@@ -32,7 +32,7 @@ Understand GitOps with Argo CD, CI vs CD, and monitoring with Prometheus, Grafan
 - [ ] Recherche video ≤ 2.5 min
 - [x] Netzwerkplan v2, PDF only
 - [ ] Netzwerkplan v2 `.drawio`: source lost, regenerate from the PDF into [`spec/diagrams/`](../diagrams/) first
-- [ ] Netzwerkplan adapted to the Smartlearn project environment (was v2 already based on it? to confirm)
+- [~] Netzwerkplan adapted to the Smartlearn project environment: zones known (see `work/smartlearn-umgebung.md`), IPs of `dmz0` still missing
 - [ ] Datenflussplan revised for monitoring, as `.drawio`
 - [~] App with Docker: app v1.4 has a multi-stage image already. Port 5000 vs 8080 still open, see [LEARNINGS](../LEARNINGS.md)
 
