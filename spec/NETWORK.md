@@ -96,7 +96,7 @@ They differ only in their MAC (`…:24:3d` and `…:24:3e`, readable from the IP
 | --- | --- | --- |
 | lan0 → internet (ICMP, HTTPS) | LM1 push to GitHub, package installs | ✅ works from KL1 |
 | dmz0 → internet (HTTPS) | Argo CD on LM2 reading GitHub, image pull from the registry | ✅ works from KL2 |
-| lan0 → dmz0 HTTPS 443 | KL1 tests against the Ingress on LM2 | untested. IPFire allows GREEN → ORANGE by default |
+| lan0 → dmz0 | KL1 tests against the Ingress on LM2, SSH into dmz0 | ✅ verified 2026-11-12: KL1 pings 192.168.120.4 and KL2, KL2's port 22 is open (443 untested until something listens) |
 | dmz0 → lan0 | not needed | should stay blocked. IPFire blocks ORANGE → GREEN by default |
 | internet → dmz0 | not needed for the course | no port forwarding planned |
 
@@ -120,3 +120,9 @@ Risk: the tunnel makes the laptop, and anyone else on the tailnet, a member of `
 - advertise only what's needed (e.g. `192.168.120.60/32` instead of the whole `dmz0`) if the full subnets aren't used
 - `sudo tailscale down` when not working on the project; remove it at the end of the semester
 - document it as a known risk in the hardening Abgabe (20.11, ZeroTrust)
+
+Status 2026-11-12:
+- **Tunnel:** laptop ↔ KL1 works. Tailscale SSH to `li261-vmkl1` works, and KL1 advertises both subnets with IP forwarding on. The routes are **not yet approved** in the admin console, so the laptop can't reach 192.168.x directly yet.
+- **Jump host:** `ssh -J vmadmin@li261-vmkl1 vmadmin@192.168.120.70` reaches KL2's sshd. Login needs the password or a key.
+- **LM1:** port 22 is open, reached from KL1.
+- **LM2:** 192.168.120.60 doesn't answer yet (netplan fix pending).
