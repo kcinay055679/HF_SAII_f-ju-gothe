@@ -17,6 +17,9 @@ Only the root repo tracks anything. The app's earlier history (from GitHub `SAII
 
 ## Project tracking (`spec/`)
 
+Read `spec/WORKING-AGREEMENT.md` first: it describes how the user and Claude work together (workflow, conventions, what to ask for).
+
+
 - `zeiterfassung-spec.md`: target product spec. Its "Baseline: app v1.4" section lists what the app has and what is missing.
 - `STATUS.md`: owns the 13 work packages from the team's Ablaufplan, open Abgaben, open decisions, and a roadmap of future dates. It links to day checklists and doesn't copy them.
 - `LEARNINGS.md`: dated findings, newest first, each tagged with the Tag it came up on.
