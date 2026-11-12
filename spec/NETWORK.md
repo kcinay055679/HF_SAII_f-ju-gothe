@@ -31,7 +31,7 @@ Last verified: 2026-11-12
 | LF1 `if229-vmLF1` | IPFire 2.29 | all | WAN 10.50.199.219/16 · LAN 192.168.110.4/24 · DMZ 192.168.120.4/24 | WAN 00:0C:29:66:a9:72 | 10.50.0.1 | 9.9.9.9, 149.112.112.112 | ✅ routes to the internet |
 | KL1 `li261-vmKL1.smartlearn.lan` | Kali | lan0 | 192.168.110.70/24 | 00:50:56:00:24:47 | 192.168.110.4 | 192.168.110.4, 9.9.9.9 | ✅ fixed, internet works |
 | KL2 `li261-vmKL2` | Kali | dmz0 | 192.168.120.70/24 | 00:50:56:00:24:46 | 192.168.120.4 | 192.168.120.4, 9.9.9.9 | ✅ fixed, internet works |
-| LM1 `li264-vmLM1` | Ubuntu 26.04 | lan0 | 192.168.110.60/24 | 00:50:56:00:24:3d | 192.168.110.1 (banner) | 192.168.110.1 (banner) | ⚠️ gateway wrong, not fixed yet |
+| LM1 `li264-vmLM1` | Ubuntu 26.04 | lan0 | 192.168.110.60/24 | 00:50:56:00:24:3d | 192.168.110.4 | 192.168.110.4, 9.9.9.9 | ✅ fixed, internet works (hostname still `li264-vmLM`) |
 | LM2 `li264-vmLM2` | Ubuntu 26.04 | dmz0 | **192.168.110.60/24 (wrong zone)**, target 192.168.120.60/24 | 00:50:56:00:24:3e | 192.168.110.1 (banner) | 192.168.110.1 (banner) | ❌ wrong subnet, not fixed yet |
 
 The LM gateway/DNS values come from the login banners. They may not be the live config: KL1's banner showed .1 while its real route pointed at .2.
@@ -134,3 +134,5 @@ Status 2026-11-12 (later): routes approved. The laptop reaches both subnets dire
 - sshd active and enabled
 
 LM1 answers ping and SSH, but there is no key on it yet. LM2 (192.168.120.60) doesn't answer yet.
+
+LM1 fixed 2026-11-12 over SSH. The original `00-eth0.yaml` only had gateway and DNS set to 192.168.110.1; both now point to 192.168.110.4, with 9.9.9.9 as a second DNS server. Backup in `/root/netplan-backup-20261112-185836`. `01-eth1.yaml` is untouched (eth1 no DHCP, link down). Verified: default via .4, ping 9.9.9.9 OK, github.com resolves, HTTPS 200. LM1 has passwordless sudo for `vmadmin`.
