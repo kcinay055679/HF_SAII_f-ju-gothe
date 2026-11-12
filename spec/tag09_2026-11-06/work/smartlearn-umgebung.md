@@ -44,3 +44,22 @@ So in `lan0` the default gateway, and with it the way to the internet, is `192.1
 ## 2026-11-12 · KL1 has no internet either
 
 Screenshot `smartlearn-netzwerkplan/04-kl1-no-internet.png`: KL1 is configured exactly as in the guide (192.168.110.70/24, default via 192.168.110.2), but `ping 8.8.8.8` answers "From 192.168.110.70 Destination Host Unreachable". KL1 reports that itself, so it can't even reach the gateway on the local network (ARP gets no answer). Either nothing answers on 192.168.110.2 in the new project environment (LF1's `lan0` address differs, or LF1 is powered off), or the Kali guide belongs to the old environment.
+
+## 2026-11-12 · Login banners of all machines
+
+Screenshots `05`–`09` in [smartlearn-netzwerkplan/](smartlearn-netzwerkplan/). The banners are printed at login and may show the template's intended values rather than the live config (KL1's banner says gateway .1, its `ip r` said .2).
+
+| Machine | IP | MAC | Gateway (banner) | DNS (banner) | Domain |
+| --- | --- | --- | --- | --- | --- |
+| LF1 `if229-vmLF1` (IPFire 2.29) | WAN 10.50.199.219/16 · **LAN 192.168.110.4/24** · **DMZ 192.168.120.4/24** | WAN 00:0C:29:66:a9:72 | 10.50.0.1 | 9.9.9.9, 149.112.112.112 | smartlearn.lan |
+| KL1 `li261-vmKL1` | 192.168.110.70/24 | 00:50:56:00:24:47 | 192.168.110.1 | 192.168.110.1 | smartlearn.lan |
+| KL2 `li261-vmKL2` | 192.168.120.70/24 | 00:50:56:00:24:46 | 192.168.120.1 | 8.8.8.8 | smartlearn.dmz |
+| `li264-vmLM…` (screenshot 06) | 192.168.110.60/24 | 00:50:56:00:24:3d | 192.168.110.1 | 192.168.110.1 | smartlearn.lan |
+| `li264-vmLM…` (screenshot 09) | 192.168.110.60/24 | 00:50:56:00:24:3e | 192.168.110.1 | 192.168.110.1 | smartlearn.lan |
+
+Findings:
+
+- **Wrong gateway on the clients:** the firewall answers on **.4** in both zones, but every client points at .1 (banner) or .2 (Kali guide). That alone explains "Destination Host Unreachable".
+- **LM1 and LM2 both have 192.168.110.60:** two different MACs (`:3d`, `:3e`) with the same IP and the same truncated hostname. One of them is LM2, which belongs in `dmz0` (192.168.120.0/24), like KL2. LM2 is configured for the wrong zone.
+- **Subnets:** `lan0` = 192.168.110.0/24, `dmz0` = 192.168.120.0/24 (not 192.168.200.0/24 as guessed in Netzwerkplan v1).
+- **LF1 console login:** `vmadmin` was rejected on the LF1 console. IPFire's console user is `root`.
