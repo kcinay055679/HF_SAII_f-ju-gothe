@@ -1,2 +1,5 @@
 # course material from the lecturer, local reference only
 /docs/
+
+# overrides the CLAUDE.md rule in the global gitignore for this repo
+!/CLAUDE.md
