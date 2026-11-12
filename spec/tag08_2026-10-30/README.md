@@ -36,7 +36,7 @@ Group work is allowed, but every member has to rebuild everything in their own e
 - [x] Team formed: f_you_goethe (whether it was sent via Teams isn't recorded)
 - [x] Netzwerkplan v1, hand-drawn photo
 - [ ] Netzwerkplan v1 as `.drawio` + PDF (superseded by v2 on Tag 09)
-- [~] Datenflussplan: drafted together with Tag 09, see [tag09](../tag09_2026-11-06/README.md)
+- [x] Datenflussplan: in `abgaben/tag09_2026-11-06/` together with Tag 09 (not handed in via Teams yet)
 - [x] Grober Ablaufplan
 - [~] Git set up for the team: project repo `HF_SAII_f-ju-gothe` + app repo `SAII_Zeiterfassung` (submodule), cloned on LM1. Members still need write access
 

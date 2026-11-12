@@ -28,11 +28,10 @@ From the team's Grober Ablaufplan (Tag 8). Status: ✅ done · 🟡 partial · �
 
 | Tag | Abgabe | Details |
 | --- | --- | --- |
-| 08 | Datenflussplan (draft done, covered by the Tag 09 one) | [tag08](tag08_2026-10-30/README.md) |
+| 08 | Datenflussplan: ready in abgaben/tag09, to hand in via Teams | [tag08](tag08_2026-10-30/README.md) |
 | 08 | Netzwerkplan v1 as `.drawio` + PDF (only the photo exists) | [tag08](tag08_2026-10-30/README.md) |
-| 09 | Recherche: A4 drafted, video scripted (needs recording) | [tag09](tag09_2026-11-06/README.md) |
-| 09 | Datenflussplan `.drawio`: drafted, needs review + export | [tag09](tag09_2026-11-06/README.md) |
-| 09 | Netzwerkplan v3 `.drawio`: drafted, needs review + export | [tag09](tag09_2026-11-06/README.md) |
+| 09 | Recherche: A4 ready in abgaben; video still to record | [tag09](tag09_2026-11-06/README.md) |
+| 09 | Datenflussplan + Netzwerkplan v3: ready in abgaben, to hand in via Teams | [tag09](tag09_2026-11-06/README.md) |
 
 ## Open decisions
 

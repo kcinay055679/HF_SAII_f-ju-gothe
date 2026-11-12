@@ -28,20 +28,24 @@ Understand GitOps with Argo CD, CI vs CD, and monitoring with Prometheus, Grafan
 
 ## Status
 
-- [~] Recherche A4 (sketch + text): draft `work/recherche-a4.pdf` (source `.typ`, sketch from `spec/diagrams/monitoring-skizze.drawio`), needs team review
+- [x] Recherche A4 (sketch + text): `f_you_goethe_26a_SAII_Recherche_Monitoring.pdf` in abgaben (source `work/recherche-a4.typ`)
 - [~] Recherche video ≤ 2.5 min: script `work/video-skript.md` (~1:40), needs recording
 - [x] Netzwerkplan v2, PDF only
 - [x] Netzwerkplan v2 `.drawio`: recovered from the PDF metadata into [`spec/diagrams/netzwerkplan.drawio`](../diagrams/netzwerkplan.drawio)
 - [x] Netzwerkplan adapted to the Smartlearn project environment (in v3, facts in [NETWORK.md](../NETWORK.md))
-- [~] Datenflussplan with monitoring: [`spec/diagrams/datenflussplan.drawio`](../diagrams/datenflussplan.drawio), preview `work/datenflussplan-entwurf.pdf`, needs team review + PDF export from draw.io
+- [x] Datenflussplan with monitoring: `.drawio` + PDF (exported by draw.io, source embedded) in abgaben
 - [x] App with Docker: app v1.4 has a tested multi-stage image. Port 8080 ([ADR-0006](../adr/0006-container-port-8080.md))
-- [~] Netzwerkplan v3: [`spec/diagrams/netzwerkplan.drawio`](../diagrams/netzwerkplan.drawio), preview `work/netzwerkplan-v3-entwurf.pdf`. Needs team review + PDF export from draw.io
+- [x] Netzwerkplan v3: `.drawio` + PDF (exported by draw.io, source embedded) in abgaben
 
 ## Ergebnisse
 
 [`abgaben/tag09_2026-11-06/`](../../abgaben/tag09_2026-11-06/)
 
-- `f_you_goethe-Netzwerkplan.drawio.pdf`: Netzwerkplan v2
+- `f_you_goethe-Netzwerkplan.drawio.pdf`: Netzwerkplan v2 (handed in 06.11)
+- `f_you_goethe_26a_SAII_Recherche_Monitoring.pdf`: Recherche A4
+- `f_you_goethe_26a_SAII_Netzwerkplan_v3.drawio` + `.pdf`: Netzwerkplan v3
+- `f_you_goethe_26a_SAII_Datenflussplan.drawio` + `.pdf`: Datenflussplan (also covers Tag 08)
+- still missing: the video (MP4); nothing has been handed in via Teams yet
 
 ## Working files
 
