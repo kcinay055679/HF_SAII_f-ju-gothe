@@ -63,3 +63,7 @@ Findings:
 - **LM1 and LM2 both have 192.168.110.60:** two different MACs (`:3d`, `:3e`) with the same IP and the same truncated hostname. One of them is LM2, which belongs in `dmz0` (192.168.120.0/24), like KL2. LM2 is configured for the wrong zone.
 - **Subnets:** `lan0` = 192.168.110.0/24, `dmz0` = 192.168.120.0/24 (not 192.168.200.0/24 as guessed in Netzwerkplan v1).
 - **LF1 console login:** `vmadmin` was rejected on the LF1 console. IPFire's console user is `root`.
+
+## 2026-11-12 · KL1 fixed
+
+Setting the gateway to LF1 fixed it (`sudo nmcli con mod eth0 ipv4.gateway 192.168.110.4 ipv4.dns "192.168.110.4 9.9.9.9" && sudo nmcli con up eth0`). Screenshot `11`: ping to 192.168.110.4 and 9.9.9.9 works, and `curl https://github.com` returns the page. LF1 itself is therefore fine. Still open: KL2, LM1, LM2 (wrong zone).
