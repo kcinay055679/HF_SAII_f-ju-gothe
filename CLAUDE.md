@@ -8,12 +8,16 @@ Team f_you_goethe's semester project for the SAII HS2026 course (HF): the "Kunde
 
 | Path | What it is | In Git |
 | --- | --- | --- |
-| `zeiterfassung/` | The app (Flask, Dockerfile, Kustomize manifests, Makefile, smoke test) | yes |
+| `zeiterfassung/` | **Submodule** → `SAII_Zeiterfassung`: the app (`app/`), all cluster code (`deploy/`) and later CI (`.github/workflows/`) | as submodule pointer |
 | `spec/` | Project tracking: product spec, status, learnings, glossary, ADRs, one folder per Tag | yes |
 | `abgaben/` | Final results handed in to the lecturer, one folder per Tag | yes |
 | `docs/` | Course material from the lecturer (slides, Aufträge, zips, videos). Read-only reference | no (`.gitignore`d) |
 
-Only the root repo tracks anything. The app's earlier history (from GitHub `SAII_Zeiterfassung`) was imported via `git subtree` under `zeiterfassung/`. No remote is set yet.
+Two repos (ADR-0007):
+- **Project repo** `git@github.com:kcinay055679/HF_SAII_f-ju-gothe.git` (this one): spec, Abgaben, diagrams.
+- **App repo** `git@github.com:kcinay055679/SAII_Zeiterfassung.git`, mounted as the submodule `zeiterfassung/`. It holds the app, the IaC (Kubernetes, Argo CD, monitoring, logging, policies, backup) and CI. Argo CD on LM2 watches its `deploy/` folder.
+
+Both repos are public. Clone with `git clone --recurse-submodules`. When changing app or IaC code: commit and push inside `zeiterfassung/` first, then commit the updated submodule pointer in the project repo.
 
 ## Project tracking (`spec/`)
 
@@ -45,7 +49,7 @@ Prerequisites: Docker, k3d, kubectl, make, curl. No host Python or Typst is need
 cd zeiterfassung
 make test      # unit tests via the Dockerfile `test` stage (build fails if a test fails)
 make cluster   # k3d registry (5050) + single-node cluster "saii"
-make dev       # test, build, k3d image import, apply k8s/overlays/dev  -> http://localhost:8080
+make dev       # test, build, k3d image import, apply deploy/zeiterfassung/overlays/dev -> http://localhost:8080
 make prod      # test, build, push to local registry, apply overlays/prod -> http://zeiterfassung.localhost:8081
 make smoke     # stamp in dev+prod, delete all pods, verify the Stamps survived
 make scan      # Trivy, HIGH/CRITICAL
@@ -60,7 +64,7 @@ Single test, on the host with a venv (`pip install -r requirements.txt -r requir
 cd zeiterfassung/app && python -m pytest tests/test_app.py::test_health_reports_healthy -q
 ```
 
-Render manifests without applying: `kubectl kustomize k8s/overlays/dev` (or `prod`).
+Render manifests without applying: `kubectl kustomize deploy/zeiterfassung/overlays/dev` (or `prod`).
 
 `VERSION` in the Makefile, `APP_VERSION` in the Dockerfile and the image tags in the overlays must be bumped together on a release.
 
@@ -70,10 +74,11 @@ Render manifests without applying: `kubectl kustomize k8s/overlays/dev` (or `pro
 - `app/app.py` is a Flask app factory `create_app(data_dir)`, served by gunicorn (`--workers 1 --threads 8`) on 8080. Each route answers both form posts (303 redirect) and JSON (201/200/400/404/409). `/health` writes a probe file to `/data` and queries the DB, returning 503 on failure. Probes use it.
 - Tests use `create_app(tmp_path).test_client()`, so there is no cluster or real DB.
 - Image: digest-pinned `python:3.13-slim`, multi-stage (build venv → test → runtime without pip), UID 10001, `/data` volume.
-- `k8s/base` (deployment, service, pvc) plus overlays:
+- `deploy/zeiterfassung/base` (deployment, service, pvc) plus overlays:
   - dev: 1 replica, NodePort 30080, imported image, ns `zeiterfassung-dev`
   - prod: 3 replicas, ClusterIP + Traefik Ingress, registry image, ns `zeiterfassung-prod`
 - Prod's 3 replicas share one RWO `local-path` PVC. That only works because the cluster has a single node (ADR-0001, ADR-0002). Don't add k3d agents without changing storage.
+- `deploy/README.md` lists the planned IaC folders (`argocd/`, `monitoring/`, `logging/`, `policies/`, `backup/`). CI must path-filter on `app/**`, so image-tag bumps in `deploy/` don't retrigger builds.
 - The course material uses minikube. `zeiterfassung/README.md` has the minikube → k3d command mapping and the rootless Docker workarounds, which the Makefile auto-detects.
 
 ## Known gaps vs the customer requirements

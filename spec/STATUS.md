@@ -11,7 +11,7 @@ From the team's Grober Ablaufplan (Tag 8). Status: ✅ done · 🟡 partial · �
 | Nr. | Work package | Status | Where we stand |
 | --- | --- | --- | --- |
 | 01 | Anforderungen & Planung | ✅ | Ablaufplan submitted on Tag 8, [spec](zeiterfassung-spec.md) written |
-| 02 | Git-Repository aufbauen | 🟡 | GitHub `HF_SAII_f-ju-gothe` with the app history imported. Team members still need write access |
+| 02 | Git-Repository aufbauen | 🟡 | Project repo `HF_SAII_f-ju-gothe` + app/IaC repo `SAII_Zeiterfassung` as submodule (ADR-0007). Team members still need write access to both; Git not set up on LM1 yet |
 | 03 | LM1 vorbereiten | 🟡 | k3d + registry setup works locally. No PostgreSQL, not yet set up on the actual LM1 |
 | 04 | Zeiterfassung entwickeln | 🟡 | App v1.4 (Persons, Actions, Status board). Missing: login, Admin area, PostgreSQL, `/metrics`, structured logs |
 | 05 | Lokal testen | 🟡 | Unit tests + smoke test exist. No Kali GUI/security tests |

@@ -17,7 +17,7 @@ How Yanick and Claude work together on this project. Read this at the start of a
 3. **Write specs with `/mattpocock-skills:to-spec`.** There is no issue tracker: a spec is saved as a file instead. Project-wide in `spec/zeiterfassung-spec.md`, per Tag in `spec/tagNN_…/spec.md`. The "check the seams" step is done by stating how the work will be verified and asking once.
 4. **Record terms and decisions as they settle:** terms in `GLOSSARY.md` (domain-modeling style, no implementation details), hard-to-reverse decisions as an ADR in `adr/`. A decision that flips gets a new ADR that supersedes the old one.
 5. **Update tracking right away:** day README checklist, `STATUS.md`, and `LEARNINGS.md` when something new was learned.
-6. **Commit and push** to `origin` (`git@github.com:kcinay055679/HF_SAII_f-ju-gothe.git`, branch `main`) after each coherent step.
+6. **Commit and push** after each coherent step. App/IaC changes go to the submodule `zeiterfassung/` (`SAII_Zeiterfassung`) first, then the pointer is committed to the project repo (`HF_SAII_f-ju-gothe`), both on `main`.
 
 ## When Claude can't get a fact
 
@@ -34,12 +34,12 @@ How Yanick and Claude work together on this project. Read this at the start of a
 - **Language:** tracking files in English, anything handed in in German. Domain terms from `GLOSSARY.md` (Person, Stamp, Admin, …), not Benutzer/Buchung.
 - **File names for Abgaben:** `f_you_goethe_26a_SAII.<ext>` and `f_you_goethe_26a_SAII_AblaufProjekt.<ext>`.
 - **The app** (`zeiterfassung/`, v1.4) is the baseline. The product spec is the target. Gaps are listed in the spec's "Baseline" section.
-- **Git:** one root repo only. `docs/` (course material) is not committed. `CLAUDE.md` is committed via a per-repo override of the global gitignore. No Claude/AI attribution in commits or PRs.
+- **Git:** project repo + app repo as submodule `zeiterfassung/` (ADR-0007). `docs/` (course material) is not committed. `CLAUDE.md` is committed via a per-repo override of the global gitignore. No Claude/AI attribution in commits or PRs.
 
 ## Before deleting or moving anything
 
 - Verify duplicates by checksum before deleting, and only delete what is also kept elsewhere.
-- Check that a nested git repo is pushed before removing its `.git`. Keep history where cheap (`git subtree`).
+- Check that a nested git repo is pushed before removing its `.git`. Keep history where cheap (`git subtree split` brought the app history back into `SAII_Zeiterfassung` as a fast-forward).
 - Ask before outward-facing steps the user hasn't asked for, such as a new remote or force-pushing.
 
 ## Communication
