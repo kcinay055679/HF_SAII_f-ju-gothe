@@ -126,3 +126,11 @@ Status 2026-11-12:
 - **Jump host:** `ssh -J vmadmin@li261-vmkl1 vmadmin@192.168.120.70` reaches KL2's sshd. Login needs the password or a key.
 - **LM1:** port 22 is open, reached from KL1.
 - **LM2:** 192.168.120.60 doesn't answer yet (netplan fix pending).
+
+Status 2026-11-12 (later): routes approved. The laptop reaches both subnets directly through KL1. KL2 checked over SSH (key login works):
+- `li261-vmKL2.smartlearn.dmz`, 192.168.120.70/24
+- default via 192.168.120.4, DNS 192.168.120.4 + 9.9.9.9
+- ping 9.9.9.9 OK, `curl https://github.com` → HTTP/2 200
+- sshd active and enabled
+
+LM1 answers ping and SSH, but there is no key on it yet. LM2 (192.168.120.60) doesn't answer yet.
