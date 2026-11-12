@@ -28,15 +28,14 @@ From the team's Grober Ablaufplan (Tag 8). Status: ✅ done · 🟡 partial · �
 
 | Tag | Abgabe | Details |
 | --- | --- | --- |
-| 08 | Datenflussplan | [tag08](tag08_2026-10-30/README.md) |
+| 08 | Datenflussplan (draft done, covered by the Tag 09 one) | [tag08](tag08_2026-10-30/README.md) |
 | 08 | Netzwerkplan v1 as `.drawio` + PDF (only the photo exists) | [tag08](tag08_2026-10-30/README.md) |
-| 09 | Recherche: 1 A4 (sketch + text) + video ≤ 2.5 min | [tag09](tag09_2026-11-06/README.md) |
-| 09 | Revised Datenflussplan `.drawio` | [tag09](tag09_2026-11-06/README.md) |
-| 09 | Netzwerkplan v2 as `.drawio` (source lost, must be regenerated) | [tag09](tag09_2026-11-06/README.md) |
+| 09 | Recherche: A4 drafted, video scripted (needs recording) | [tag09](tag09_2026-11-06/README.md) |
+| 09 | Datenflussplan `.drawio`: drafted, needs review + export | [tag09](tag09_2026-11-06/README.md) |
+| 09 | Netzwerkplan v3 `.drawio`: v2 source recovered, v3 waits on `dmz0` IPs | [tag09](tag09_2026-11-06/README.md) |
 
 ## Open decisions
 
-- Container port: 5000 (team plans, submitted network plan) vs 8080 (app v1.4). See [LEARNINGS](LEARNINGS.md).
 - Cluster on LM1/LM2: k3d (ADR-0001) vs whatever the Smartlearn project environment provides.
 - Registry product, and whether Argo CD on LM2 can reach GitHub.
 - ELK vs Loki for logs, depends on LM2 memory.

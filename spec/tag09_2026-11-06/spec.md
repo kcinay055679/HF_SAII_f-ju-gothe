@@ -30,7 +30,7 @@ The lecturer asked for three things on Tag 09, and the team only has a PDF of th
    - adapt it to the Smartlearn project environment
    - export to PDF
 4. **Datenflussplan:** as specified in the [Tag 08 spec](../tag08_2026-10-30/spec.md), which also covers this Tag.
-5. **Port decision:** decide 8080 vs 5000 as an ADR before step 3, so the plans and the app agree.
+5. **Port decision:** decided 8080 ([ADR-0006](../adr/0006-container-port-8080.md)), so the plans follow the app.
 6. **App with Docker:** nothing new. App v1.4 already builds a tested image. Record that in the README.
 
 ## User Stories
@@ -123,13 +123,13 @@ The lecturer asked for three things on Tag 09, and the team only has a PDF of th
   - `spec/diagrams/` holds `netzwerkplan.drawio`, `datenflussplan.drawio` and `monitoring-skizze.drawio`
   - every Abgabe is a PDF export, and the `.drawio` itself is submitted too
   - the network plan version is in the title block (v3)
-- **Regenerating v2:** rebuild it from the PDF with the same three-column layout and labels, commit that as the v2 baseline first, then make the v3 changes in a separate commit. That way the diff shows what changed for Tag 09.
+- **v2 baseline:** the v2 source was recovered unchanged from the PDF metadata and committed as the baseline. The v3 changes go in a separate commit. That way the diff shows what changed for Tag 09.
 - **Smartlearn project environment:** taken from the lecturer's Smartlearn network plan, summarised in `work/smartlearn-umgebung.md`.
   - three zones: `lan0` (Entwicklungsnetz: LM1, KL1), `dmz0` (Kundennetz: LM2, KL2) and `wan0` (outside)
   - firewall LF1 (`if229-vmLF1`) joins the three zones
   - v3 draws every cross-zone flow through LF1, adds KL2, and puts GitHub (Git, likely the registry too) behind `wan0`
   - IPs of `dmz0`/LM2/KL2/LF1 and the firewall rules are still unknown and stay marked as assumptions
-- **Port:** a new ADR decides 8080 or 5000. Recommendation: 8080, because the app, its probes, the Makefile, the smoke test and the course reference app all use it; the plans are cheaper to change than the app. The Ablaufplan stays as submitted.
+- **Port:** 8080, decided in ADR-0006, because the app, its probes, the Makefile, the smoke test and the course reference app all use it; the plans are cheaper to change than the app. The Ablaufplan stays as submitted.
 
 ## Testing Decisions
 
@@ -166,5 +166,5 @@ The seam is the lecturer's requirement list for each Abgabe, checked on the fina
 
 - **Deadline:** the Tag 09 Abgaben were due "bis Ende Lektion" on 06.11.2026, so they're late. The next Tag (13.11.2026, remote) moves on to Mattermost/metrics.
 - **Recording the video:** someone in the team has to record it; Claude can only write the script.
-- **Port in the plans:** the submitted v2 PDF says 5000 in several places. If the ADR picks 8080, v3 must change all of them. The legend should note the change so the lecturer isn't confused.
+- **Port in the plans:** the submitted v2 PDF says 5000 in several places. v3 changes all of them to 8080. The legend should note the change so the lecturer isn't confused.
 - **Sizing hint for ELK:** LM1 has 15 GiB RAM. If LM2 is similar, ELK + Prometheus + Grafana + the app fit, but tightly. Worth one sentence in the A4 as "Elasticsearch braucht am meisten Speicher".

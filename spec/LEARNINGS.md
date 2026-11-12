@@ -6,13 +6,13 @@ Things we noticed along the way. Newest first. Each entry names the Tag it came 
 
 The lecturer's Smartlearn plan has three zones: `lan0` (LM1, KL1), `dmz0` (LM2, KL2) and `wan0`. Firewall `if229-vmLF1` connects them. Network plan v2 drew no firewall and no KL2. Every cross-zone flow (LM1 → GitHub, LM2 → GitHub/registry, KL1 → LM2) needs an opening on LF1. The IPs are not on the plan. Details: [tag09 work](tag09_2026-11-06/work/smartlearn-umgebung.md).
 
-## 2026-11-12 · Tag 09 · The network plan v2 source is lost
+## 2026-11-12 · Tag 09 · draw.io PDFs carry their own source
 
-Only `f_you_goethe-Netzwerkplan.drawio.pdf` exists. Before changing the network plan again, regenerate the `.drawio` from the PDF into [diagrams/](diagrams/) and edit only that from then on. Every Abgabe gets a PDF exported from it.
+The network plan v2 "source" wasn't lost. draw.io embeds the diagram XML, URL-encoded, in the PDF's `Subject` metadata (`pdfinfo` shows it). It was recovered unchanged into [diagrams/netzwerkplan.drawio](diagrams/netzwerkplan.drawio). Keep exporting with "include a copy of my diagram" so this keeps working.
 
-## 2026-11-12 · Tag 09 · Container port 5000 vs 8080
+## 2026-11-12 · Tag 09 · Container port 5000 vs 8080, decided: 8080
 
-The Ablaufplan and the submitted network plan v2 say the app listens on 5000. App v1.4 listens on 8080, and so does the Tag 6 reference app; only the Übungstest Flask app uses 5000. Pick one, write an ADR, and align the network plan or the app.
+The Ablaufplan and network plan v2 said 5000, but app v1.4 and the Tag 6 reference use 8080. Decided 8080 ([ADR-0006](adr/0006-container-port-8080.md)), and the plans follow.
 
 ## 2026-11-12 · Tag 09 · The app baseline contradicts the customer requirements
 

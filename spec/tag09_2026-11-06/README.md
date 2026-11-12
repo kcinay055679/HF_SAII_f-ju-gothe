@@ -28,13 +28,14 @@ Understand GitOps with Argo CD, CI vs CD, and monitoring with Prometheus, Grafan
 
 ## Status
 
-- [ ] Recherche A4 (sketch + text)
-- [ ] Recherche video ≤ 2.5 min
+- [~] Recherche A4 (sketch + text): draft `work/recherche-a4.pdf` (source `.typ`, sketch from `spec/diagrams/monitoring-skizze.drawio`), needs team review
+- [~] Recherche video ≤ 2.5 min: script `work/video-skript.md` (~1:40), needs recording
 - [x] Netzwerkplan v2, PDF only
-- [ ] Netzwerkplan v2 `.drawio`: source lost, regenerate from the PDF into [`spec/diagrams/`](../diagrams/) first
+- [x] Netzwerkplan v2 `.drawio`: recovered from the PDF metadata into [`spec/diagrams/netzwerkplan.drawio`](../diagrams/netzwerkplan.drawio)
 - [~] Netzwerkplan adapted to the Smartlearn project environment: zones known (see `work/smartlearn-umgebung.md`), IPs of `dmz0` still missing
-- [ ] Datenflussplan revised for monitoring, as `.drawio`
-- [~] App with Docker: app v1.4 has a multi-stage image already. Port 5000 vs 8080 still open, see [LEARNINGS](../LEARNINGS.md)
+- [~] Datenflussplan with monitoring: [`spec/diagrams/datenflussplan.drawio`](../diagrams/datenflussplan.drawio), preview `work/datenflussplan-entwurf.pdf`, needs team review + PDF export from draw.io
+- [x] App with Docker: app v1.4 has a tested multi-stage image. Port 8080 ([ADR-0006](../adr/0006-container-port-8080.md))
+- [ ] Netzwerkplan v3 (firewall LF1, KL2, monitoring ports, 8080): waiting on `dmz0` IPs
 
 ## Ergebnisse
 

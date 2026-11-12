@@ -26,7 +26,7 @@ Read `spec/WORKING-AGREEMENT.md` first: it describes how the user and Claude wor
 - `GLOSSARY.md`: canonical terms. Use **Person / Admin / Stamp / Action / Status / LM1 / LM2 / Kali / Tag / Auftrag / Abgabe**. Avoid User, Benutzer, Buchung and Stempelung in English text.
 - `adr/`: ADRs `NNNN-slug.md`. A decision that flips (e.g. adding login, or PostgreSQL) gets a new ADR that supersedes the old one, not an edit of it.
 - `tagNN_YYYY-MM-DD/README.md`: one per course day from Tag 08 (project start) on. Sections: Ziel, Aufträge, Abgaben, Status checklist, Ergebnisse, Erkenntnisse. The day README owns its checklist. Drafts go into that day's `work/`.
-- `diagrams/`: living `.drawio` sources for the network plan and data flow plan, revised across Tage. Each Abgabe gets a PDF export of that day's version. The network plan v2 source is lost: regenerate it from `abgaben/tag09_2026-11-06/*.pdf` before changing it.
+- `diagrams/`: living `.drawio` sources for the network plan and data flow plan, revised across Tage. Each Abgabe gets a PDF export of that day's version. draw.io PDFs embed their source in the `Subject` metadata, so a "lost" `.drawio` can be recovered with `pdfinfo`.
 - `archive/`: superseded planning docs.
 
 Conventions:
@@ -85,4 +85,4 @@ The app was built for the Tag 4/5 Auftrag. The customer project still needs:
 - CI, Argo CD, NetworkPolicies
 - Mattermost alerting
 
-Open decision: container port 8080 (app) vs 5000 (team plans, submitted network plan). See `spec/STATUS.md` and `spec/LEARNINGS.md`.
+Container port is 8080 (ADR-0006). The submitted network plan v2 still says 5000; v3 fixes that.

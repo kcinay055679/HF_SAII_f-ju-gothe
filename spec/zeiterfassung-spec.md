@@ -22,7 +22,7 @@ Gaps against this spec (each needs work and, where a decision flips, a new ADR t
 - k3d on one machine instead of the LM1 / LM2 split (ADR-0001): to decide once the Smartlearn project environment is known
 - no `/metrics`, no structured logs, no tracing
 - no CI pipeline, no SBOM, no Argo CD, no NetworkPolicy, no read-only root filesystem, no Mattermost alerting
-- listens on 8080, the team plans say 5000: open decision, see [LEARNINGS.md](LEARNINGS.md)
+- listens on 8080, the team plans said 5000: decided 8080 ([ADR-0006](adr/0006-container-port-8080.md))
 
 ## Problem Statement
 
@@ -143,7 +143,7 @@ A small Zeiterfassung web application, packaged as a hardened container image, d
 ### Application (Zeiterfassung service)
 
 - Single web service, server-rendered HTML (no SPA). Python, following the course prior art (Flask in the Übungstest, stdlib HTTP server in the Tag 6 reference). Flask preferred for sessions, forms and the Prometheus client integration.
-- Container port: team plans say 5000, baseline app uses 8080 (open, see LEARNINGS). The Service maps 80 → container port; Ingress terminates TLS on 443.
+- Container port 8080 ([ADR-0006](adr/0006-container-port-8080.md)). The Service maps 80 → container port; Ingress terminates TLS on 443.
 - HTTP interface (the main contract, also the test seam):
   - `GET /login`, `POST /login`, `POST /logout`
   - `GET /` – own stamping page with own recent Stamps (auth required)
@@ -274,7 +274,7 @@ A small Zeiterfassung web application, packaged as a hardened container image, d
 ## Further Notes
 
 - **Timeline** (module plan): Mattermost integration 13.11.2026, hardening documentation 20.11 and implementation 27.11, Test 2 / Projekt-Gate (RAG status for Delivery, Observability, Security, Recovery, Documentation), handover and cross-team test 18.12.2026, Projektabgabe with live acceptance and failure challenge 09.01.2027. The two module plan versions in `docs/General` disagree on dates and topics per day; the A&C version is the more detailed one and was used for topic content.
-- **Port inconsistency**: the Tag 6 reference app listens on 8080, the Übungstest Flask app on 5000, the team planning uses 5000 and the baseline app v1.4 uses 8080. Still open; whichever wins gets an ADR and the network plan follows.
+- **Port inconsistency**: the Tag 6 reference app listens on 8080, the Übungstest Flask app on 5000, the team planning used 5000 and the baseline app v1.4 uses 8080. Decided 8080 in ADR-0006; the plans follow.
 - **Open assumptions** (from team Ablaufplan and Netzwerkplan v2, still to confirm against the new Smartlearn project environment): exact LM2 IP and hostnames, where Git/CI/registry live and which product, whether Mattermost and ELK run on LM2 or are provided centrally, whether LM2 runs Minikube or k3s, resource limits of LM2 for running the full ELK stack (ELK is memory-heavy; Loki is the fallback the module plan allows).
 - **Group rule**: group work allowed, but every member must rebuild the setup in their own environment, so the LM1 and LM2 setup must be fully scripted/documented.
 - **Deliverables still referenced by the course**: ADR-001, updated Netzwerkplan and Datenflussplan (.drawio + PDF), Telemetry-Plan, three PromQL queries + dashboard + SLO + test alert, incident report and improved runbook, tested policy + restore evidence + risk list, handover protocol.
