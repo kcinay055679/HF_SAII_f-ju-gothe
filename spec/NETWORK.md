@@ -1,8 +1,8 @@
 # Network: Smartlearn project environment "Projekt SAII HS2026"
 
-The single source for the network facts of the project environment. It is the input for Netzwerkplan v3 and the Datenflussplan. Raw evidence (screenshots, day log) is in [tag09 work](tag09_2026-11-06/work/smartlearn-umgebung.md) and [its screenshots](tag09_2026-11-06/work/smartlearn-netzwerkplan/).
+The single source for the network facts of the project environment. It is the input for Netzwerkplan v3 and the Datenflussplan. Check it before touching VM networking. Raw evidence (screenshots, day log) is in [tag09 work](tag09_2026-11-06/work/smartlearn-umgebung.md) and [its screenshots](tag09_2026-11-06/work/smartlearn-netzwerkplan/).
 
-Last verified: 2026-11-12
+Last verified: 2026-11-12. All five VMs have working networking.
 
 ## Topology
 
@@ -22,139 +22,125 @@ Last verified: 2026-11-12
    (smartlearn.lan)             (smartlearn.dmz)
    ├─ LM1 li264-vmLM1  .60      ├─ LM2 li264-vmLM2  .60
    └─ KL1 li261-vmKL1  .70      └─ KL2 li261-vmKL2  .70
+                 │
+            Tailscale subnet router → laptop (see Remote access)
 ```
 
 ## Machines
 
-| Machine | OS | Zone | IP | MAC | Gateway | DNS | Status |
+| Machine | OS | Zone | IP | MAC | Gateway | DNS | vCPU / RAM / Disk |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| LF1 `if229-vmLF1` | IPFire 2.29 | all | WAN 10.50.199.219/16 · LAN 192.168.110.4/24 · DMZ 192.168.120.4/24 | WAN 00:0C:29:66:a9:72 | 10.50.0.1 | 9.9.9.9, 149.112.112.112 | ✅ routes to the internet |
-| KL1 `li261-vmKL1.smartlearn.lan` | Kali | lan0 | 192.168.110.70/24 | 00:50:56:00:24:47 | 192.168.110.4 | 192.168.110.4, 9.9.9.9 | ✅ fixed, internet works |
-| KL2 `li261-vmKL2` | Kali | dmz0 | 192.168.120.70/24 | 00:50:56:00:24:46 | 192.168.120.4 | 192.168.120.4, 9.9.9.9 | ✅ fixed, internet works |
-| LM1 `li264-vmLM1` | Ubuntu 26.04 | lan0 | 192.168.110.60/24 | 00:50:56:00:24:3d | 192.168.110.4 | 192.168.110.4, 9.9.9.9 | ✅ fixed, internet works, hostname set |
-| LM2 `li264-vmLM2` | Ubuntu 26.04 | dmz0 | 192.168.120.60/24 | 00:50:56:00:24:3e | 192.168.120.4 | 192.168.120.4, 9.9.9.9 | ✅ fixed, internet works, hostname set |
+| LF1 `if229-vmLF1` | IPFire 2.29 | all | WAN 10.50.199.219/16 · LAN 192.168.110.4/24 · DMZ 192.168.120.4/24 | WAN 00:0C:29:66:a9:72 | 10.50.0.1 | 9.9.9.9, 149.112.112.112 | – |
+| LM1 `li264-vmLM1.smartlearn.lan` | Ubuntu 26.04 | lan0 | 192.168.110.60/24 | 00:50:56:00:24:3d | 192.168.110.4 | 192.168.110.4, 9.9.9.9 | 1 / 15 GiB / 63 GB |
+| KL1 `li261-vmKL1.smartlearn.lan` | Kali | lan0 | 192.168.110.70/24 | 00:50:56:00:24:47 | 192.168.110.4 | 192.168.110.4, 9.9.9.9 | – |
+| LM2 `li264-vmLM2.smartlearn.dmz` | Ubuntu 26.04 | dmz0 | 192.168.120.60/24 | 00:50:56:00:24:3e | 192.168.120.4 | 192.168.120.4, 9.9.9.9 | 1 / 15 GiB / 63 GB |
+| KL2 `li261-vmKL2.smartlearn.dmz` | Kali | dmz0 | 192.168.120.70/24 | 00:50:56:00:24:46 | 192.168.120.4 | 192.168.120.4, 9.9.9.9 | – |
 
-The LM gateway/DNS values come from the login banners. They may not be the live config: KL1's banner showed .1 while its real route pointed at .2.
+All verified live over SSH or the console: default route, DNS, `ping 9.9.9.9`, `curl https://github.com` → 200.
 
-## Problem: no internet on the VMs
-
-**Symptom.** On KL1, `ping 8.8.8.8` returned "From 192.168.110.70 … Destination Host Unreachable", and `curl` hung.
-
-**Cause.** KL1 reported the error itself, which means its ARP request for the gateway got no answer on `lan0`. Every client pointed at a gateway that doesn't exist:
-- the course guide (`docs/General/eth0 kali konfig.pdf`) says 192.168.110.2, probably from an older environment
-- the login banners say .1
-
-The firewall LF1 actually answers on **.4** in both zones, as its own console shows.
-
-**Second problem.** Both Ubuntu VMs have 192.168.110.60 (MACs `:3d` and `:3e`). LM2 belongs in `dmz0` (192.168.120.0/24), like KL2. It can't work where it is: it is either attached to `dmz0` with a `lan0` address, or it collides with LM1.
-
-**Fix on Kali (done on KL1 and KL2).** NetworkManager, connection `eth0`:
-
-```bash
-# lan0 (KL1)
-sudo nmcli con mod eth0 ipv4.gateway 192.168.110.4 ipv4.dns "192.168.110.4 9.9.9.9"
-# dmz0 (KL2)
-sudo nmcli con mod eth0 ipv4.gateway 192.168.120.4 ipv4.dns "192.168.120.4 9.9.9.9"
-
-sudo nmcli con up eth0
-ping -c2 9.9.9.9 && curl -sI https://github.com | head -1
-```
-
-Verified: KL1 reaches 192.168.110.4, 9.9.9.9 and github.com. The user confirmed that KL2 has internet too.
-
-**Fix on Ubuntu (to do on LM1 and LM2).** Edit the file in `/etc/netplan/`, then run `sudo netplan try`, which rolls back on its own unless confirmed:
-
-```yaml
-# LM1 (lan0)
-network:
-  version: 2
-  ethernets:
-    <iface>:                    # from `ip -br a`
-      dhcp4: false
-      addresses: [192.168.110.60/24]
-      routes: [{to: default, via: 192.168.110.4}]
-      nameservers: {addresses: [192.168.110.4, 9.9.9.9], search: [smartlearn.lan]}
-```
-
-For LM2 (dmz0) use `addresses: [192.168.120.60/24]`, `via: 192.168.120.4`, DNS `192.168.120.4, 9.9.9.9` and `search: [smartlearn.dmz]`. 192.168.120.60 is our choice to mirror KL2's .70; check it's free first (`ping 192.168.120.60` from KL2 should get no answer). To tell the two VMs apart, `hostnamectl` on each shows the full hostname.
-
-## The two Ubuntu VMs are clones
-
-Screenshots `13` and `14` show both Ubuntu VMs with identical config:
-- **hostname:** `li264-vmLM.smartlearn.lan`, with no 1 or 2
-- **eth0:** UP, 192.168.110.60/24, default via 192.168.110.1
-- **eth1:** DOWN
-- **netplan files:** `00-eth0.yaml`, `01-eth1.yaml`
-
-They differ only in their MAC (`…:24:3d` and `…:24:3e`, readable from the IPv6 link-local address). The hostname can't tell them apart, so the test is which one reaches KL1 (192.168.110.70). KL1 only lives in `lan0`, so the VM that gets an answer is LM1. Once identified, set the hostnames to `li264-vmLM1` and `li264-vmLM2`.
-
-**Identified** (screenshots `15`, `16`): the Smartlearn console tabs show the VM name and the attached network. `li264-vmLM1` = MAC `:3d`, attached to `lan0`. `li264-vmLM2` = MAC `:3e`, attached to `dmz0`. So LM2's `eth0` is plugged into `dmz0` but carries a `lan0` address.
+Access and config:
+- **User:** `vmadmin` everywhere. LM1 and LM2 have passwordless `sudo`.
+- **SSH:** sshd runs on LM1, LM2 and KL2 (on KL2 enabled by hand). The laptop's key is installed on LM1, LM2 and KL2. KL1 is reached via Tailscale SSH.
+- **Network config:** Ubuntu uses netplan + systemd-networkd (`/etc/netplan/00-eth0.yaml`; `01-eth1.yaml` keeps `eth1` down and unused). Kali uses NetworkManager, connection `eth0`.
+- **Login banners:** the banners printed at login show the template's values (gateway/DNS .1, hostname `li264-vmLM`). They are static text, not the live config. Ignore them.
+- **LF1 console:** takes `root`, not `vmadmin`. Its web UI is `https://192.168.110.4:444` (IPFire default, untested).
 
 ## Firewall (LF1) behaviour
 
 | Flow | Needed for | Status |
 | --- | --- | --- |
-| lan0 → internet (ICMP, HTTPS) | LM1 push to GitHub, package installs | ✅ works from KL1 |
-| dmz0 → internet (HTTPS) | Argo CD on LM2 reading GitHub, image pull from the registry | ✅ works from KL2 |
-| lan0 → dmz0 | KL1 tests against the Ingress on LM2, SSH into dmz0 | ✅ verified 2026-11-12: KL1 pings 192.168.120.4 and KL2, KL2's port 22 is open (443 untested until something listens) |
+| lan0 → internet | LM1 push to GitHub, package installs | ✅ verified |
+| dmz0 → internet | Argo CD on LM2 reading GitHub, image pull from the registry | ✅ verified |
+| lan0 → dmz0 | KL1 tests against the Ingress on LM2, SSH into dmz0 | ✅ verified (ICMP, SSH 22). 443 untested until something listens on LM2 |
 | dmz0 → lan0 | not needed | ✅ verified blocked: LM2 can't ping KL1 or open LM1:22 |
-| internet → dmz0 | not needed for the course | no port forwarding planned |
+| internet → dmz0 | not needed for the course | no port forwarding |
 
-The IPFire console takes `root`, not `vmadmin` (that login was rejected). Only needed if LF1 itself ever has to be checked.
+These are IPFire's defaults: GREEN → ORANGE allowed, ORANGE → GREEN blocked, outgoing allowed. Nothing on LF1 was changed.
 
-## Open
+Why lan0 may reach the DMZ: a DMZ protects the internal network *from* the DMZ (a compromised public server can't attack inside), not the other way round. Admins manage DMZ servers from inside.
 
-- [x] LM1 and LM2: identified, netplan fixed, hostnames set (2026-11-12)
-- [ ] Test lan0 → dmz0 on 443 once something listens on LM2.
-- [ ] Mattermost: on LM2 or a central instance?
+## Problems found and fixed (2026-11-12)
+
+### 1. No VM had internet: wrong gateway
+
+- **Symptom:** On KL1, `ping 8.8.8.8` → "From 192.168.110.70 … Destination Host Unreachable"; `curl` hung.
+- **Cause:** KL1 reported the error itself, so its ARP request for the gateway got no answer. Every VM pointed at a gateway that doesn't exist: .2 from the course guide (`docs/General/eth0 kali konfig.pdf`, probably an older environment) or .1 from the VM template. LF1, the real router, answers on **.4** in both zones (read from its console).
+- **Fix on Kali** (KL1 and KL2):
+  ```bash
+  sudo nmcli con mod eth0 ipv4.gateway 192.168.110.4 ipv4.dns "192.168.110.4 9.9.9.9"   # KL1
+  sudo nmcli con mod eth0 ipv4.gateway 192.168.120.4 ipv4.dns "192.168.120.4 9.9.9.9"   # KL2
+  sudo nmcli con up eth0
+  ```
+- **Fix on Ubuntu** (LM1): in `/etc/netplan/00-eth0.yaml`, change gateway and DNS from 192.168.110.1 to 192.168.110.4 and add 9.9.9.9, then `sudo netplan apply`.
+
+### 2. LM2 had LM1's address: cloned VMs
+
+- **Symptom:** Both Ubuntu VMs showed 192.168.110.60, hostname `li264-vmLM`, identical netplan files. Only the MAC differed.
+- **Cause:** both are clones of one template. LM2's `eth0` is attached to `dmz0` in Smartlearn but carried the `lan0` address, so it reached nothing.
+- **How they were told apart:** the Smartlearn console tab shows the VM name and the attached network (`li264-vmLM1` = `:3d` / lan0, `li264-vmLM2` = `:3e` / dmz0).
+- **Fix** (typed in the LM2 console, since copy-paste into Smartlearn doesn't work):
+  ```bash
+  sudo sed -i 's/110\.1\b/120.4/;s/110/120/;s/\.lan/.dmz/' /etc/netplan/00-eth0.yaml && sudo netplan apply
+  ```
+  Then over SSH: second DNS server 9.9.9.9 added, hostname set.
+- **Hostnames:** `sudo hostnamectl set-hostname li264-vmLM1` / `li264-vmLM2`, and the `127.0.1.1` line in `/etc/hosts` updated to match (`.smartlearn.lan` / `.smartlearn.dmz`).
+- **Backups:** the original netplan configs are in `/root/netplan-backup-*` on LM1 and LM2.
+
+### Final netplan on LM2 (LM1 is the same with 110 / .lan)
+
+```yaml
+network:
+  ethernets:
+    eth0:
+      addresses:
+      - 192.168.120.60/24
+      routes:
+        - to: default
+          via: 192.168.120.4
+      nameservers:
+        addresses:
+        - 192.168.120.4
+        - 9.9.9.9
+        search:
+        - smartlearn.dmz
+  version: 2
+```
 
 ## Remote access: Tailscale subnet router on KL1
 
-Setup (2026-11-12): KL1 runs Tailscale with `--ssh --advertise-routes=192.168.110.0/24,192.168.120.0/24` and IP forwarding on. The laptop reaches all VMs through KL1.
+The lecturer allowed remote access. Smartlearn can't be reached from the internet: LF1's WAN 10.50.199.219 is itself a private address. So KL1 opens an outgoing tunnel.
 
-Why this reaches `dmz0`: a DMZ protects the internal network *from* the DMZ, not the other way round. LF1 lets lan0 → dmz0 through (IPFire default GREEN → ORANGE allowed), because admins manage DMZ servers from inside. It blocks dmz0 → lan0 (ORANGE → GREEN), so a compromised DMZ server can't attack the internal network. The internet can't open connections into the DMZ either, except for explicitly published services.
+- **KL1:** Tailscale installed (`curl -fsSL https://tailscale.com/install.sh | sh`), `net.ipv4.ip_forward=1` in `/etc/sysctl.d/99-ts.conf`, and `sudo tailscale up --ssh --qr --advertise-routes=192.168.110.0/24,192.168.120.0/24`. Login was done by scanning the QR code with a phone.
+- **Admin console:** both routes approved on `li261-vmKL1`.
+- **Laptop:** `sudo tailscale up --accept-routes`. Then `ssh vmadmin@192.168.110.60` (LM1), `ssh vmadmin@192.168.120.60` (LM2), `ssh vmadmin@192.168.120.70` (KL2), `ssh vmadmin@li261-vmkl1` (KL1, Tailscale SSH).
+- **Source address:** traffic from the laptop arrives at the VMs from KL1's address (Tailscale SNAT), so LF1 sees ordinary lan0 → dmz0 traffic.
 
-Risk: the tunnel makes the laptop, and anyone else on the tailnet, a member of `lan0`, passing LF1 as if it were inside. That is acceptable for a lab (allowed by the lecturer), but:
-
+Risk: the tunnel makes the laptop, and anyone else on the tailnet, a member of `lan0`, bypassing LF1's "nothing from outside" protection. Mitigations:
 - keep the tailnet to own devices, and enable key expiry
-- advertise only what's needed (e.g. `192.168.120.60/32` instead of the whole `dmz0`) if the full subnets aren't used
-- `sudo tailscale down` when not working on the project; remove it at the end of the semester
-- document it as a known risk in the hardening Abgabe (20.11, ZeroTrust)
+- narrow the routes to single hosts (e.g. `192.168.120.60/32`) if the full subnets aren't needed
+- `sudo tailscale down` on KL1 when not working; remove it at semester end
+- document it as a known risk in the hardening Abgabe (20.11, Zero Trust)
 
-Status 2026-11-12:
-- **Tunnel:** laptop ↔ KL1 works. Tailscale SSH to `li261-vmkl1` works, and KL1 advertises both subnets with IP forwarding on. The routes are **not yet approved** in the admin console, so the laptop can't reach 192.168.x directly yet.
-- **Jump host:** `ssh -J vmadmin@li261-vmkl1 vmadmin@192.168.120.70` reaches KL2's sshd. Login needs the password or a key.
-- **LM1:** port 22 is open, reached from KL1.
-- **LM2:** 192.168.120.60 doesn't answer yet (netplan fix pending).
+## Constraints for the project
 
-Status 2026-11-12 (later): routes approved. The laptop reaches both subnets directly through KL1. KL2 checked over SSH (key login works):
-- `li261-vmKL2.smartlearn.dmz`, 192.168.120.70/24
-- default via 192.168.120.4, DNS 192.168.120.4 + 9.9.9.9
-- ping 9.9.9.9 OK, `curl https://github.com` → HTTP/2 200
-- sshd active and enabled
+- **Only 1 vCPU per LM.** Kubernetes, Argo CD, Prometheus, Grafana, ELK and the app all on LM2 will be CPU-bound. RAM (15 GiB) is fine. Prefer lightweight choices (k3s, Loki instead of ELK, few replicas), or ask the lecturer for more vCPUs.
+- **No copy-paste into the Smartlearn consoles.** Do everything over SSH from the laptop. Typing in the console is only for bootstrapping.
 
-LM1 answers ping and SSH, but there is no key on it yet. LM2 (192.168.120.60) doesn't answer yet.
+## Open
 
-LM1 fixed 2026-11-12 over SSH. The original `00-eth0.yaml` only had gateway and DNS set to 192.168.110.1; both now point to 192.168.110.4, with 9.9.9.9 as a second DNS server. Backup in `/root/netplan-backup-20261112-185836`. `01-eth1.yaml` is untouched (eth1 no DHCP, link down). Verified: default via .4, ping 9.9.9.9 OK, github.com resolves, HTTPS 200. LM1 has passwordless sudo for `vmadmin`.
+- [ ] Test lan0 → dmz0 on 443 once the Ingress runs on LM2.
+- [ ] Mattermost: on LM2 or a central instance?
+- [ ] Decide whether to narrow the Tailscale routes to single hosts.
 
-LM1 hostname renamed 2026-11-12 from the clone default `li264-vmLM` to `li264-vmLM1` (`hostnamectl` + `/etc/hosts`).
+## Log
 
-LM2 minimal-typing fix (it's a clone, so `00-eth0.yaml` is the same as LM1's original):
-`sudo sed -i 's/110\.1\b/120.4/;s/110/120/;s/\.lan/.dmz/' /etc/netplan/00-eth0.yaml && sudo netplan apply`
-This turns gateway/DNS 192.168.110.1 into 192.168.120.4, the address 192.168.110.60 into 192.168.120.60, and the search domain `smartlearn.lan` into `smartlearn.dmz`.
-
-LM2 fixed 2026-11-12. The user ran the one-line `sed` in the console, then Claude finished over SSH:
-- added 9.9.9.9 as second DNS server and removed a trailing space after the address (backup in `/root/netplan-backup-*`)
-- hostname `li264-vmLM2`, `/etc/hosts` → `li264-vmLM2.smartlearn.dmz`
-- verified: default via 192.168.120.4, ping 9.9.9.9 OK, github.com resolves, HTTPS 200, sshd active
-
-All five VMs now have working networking.
-
-## VM resources
-
-| VM | vCPU | RAM | Disk / |
-| --- | --- | --- | --- |
-| LM1 | 1 | 15 GiB | 63 GB |
-| LM2 | 1 | 15 GiB | 63 GB, 58 GB free |
-
-**Only 1 vCPU each.** k3s/minikube, Argo CD, Prometheus, Grafana, ELK and the app all on LM2 will be CPU-bound. RAM is fine. Elasticsearch is the heaviest; Loki is the lighter fallback.
+| When (2026-11-12) | What |
+| --- | --- |
+| afternoon | Smartlearn network plan screenshots: zones lan0 / dmz0 / wan0, firewall LF1, second Kali KL2 |
+| ~18:00 | KL1 has no internet; gateway .2 unreachable |
+| ~18:05 | Console banners of all VMs: LF1 is .4 in both zones; LM1 and LM2 both 192.168.110.60 |
+| ~18:10 | KL1 fixed (gateway .4), then KL2 |
+| ~18:25 | LM1/LM2 identified via the Smartlearn console tabs |
+| ~18:45 | Tailscale on KL1, routes approved; KL2 checked over SSH |
+| ~18:58 | LM1 gateway fixed and hostname set over SSH |
+| ~19:10 | LM2 address fixed in the console (`sed`), finished over SSH; dmz0 → lan0 verified blocked |
