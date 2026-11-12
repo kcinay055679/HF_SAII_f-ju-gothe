@@ -40,3 +40,7 @@ The only network setup guide in `docs/` is `General/eth0 kali konfig.pdf`, four 
 3. Save, then in the panel's network menu "Disconnect" `eth0` and connect it again so the settings apply.
 
 So in `lan0` the default gateway, and with it the way to the internet, is `192.168.110.2` (presumably LF1). Nothing in the material covers `dmz0` (LM2, KL2). The Qwen guide only lists "Internetzugriff für Downloads" as a prerequisite.
+
+## 2026-11-12 · KL1 has no internet either
+
+Screenshot `smartlearn-netzwerkplan/04-kl1-no-internet.png`: KL1 is configured exactly as in the guide (192.168.110.70/24, default via 192.168.110.2), but `ping 8.8.8.8` answers "From 192.168.110.70 Destination Host Unreachable". KL1 reports that itself, so it can't even reach the gateway on the local network (ARP gets no answer). Either nothing answers on 192.168.110.2 in the new project environment (LF1's `lan0` address differs, or LF1 is powered off), or the Kali guide belongs to the old environment.
