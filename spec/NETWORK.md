@@ -31,8 +31,8 @@ Last verified: 2026-11-12
 | LF1 `if229-vmLF1` | IPFire 2.29 | all | WAN 10.50.199.219/16 · LAN 192.168.110.4/24 · DMZ 192.168.120.4/24 | WAN 00:0C:29:66:a9:72 | 10.50.0.1 | 9.9.9.9, 149.112.112.112 | ✅ routes to the internet |
 | KL1 `li261-vmKL1.smartlearn.lan` | Kali | lan0 | 192.168.110.70/24 | 00:50:56:00:24:47 | 192.168.110.4 | 192.168.110.4, 9.9.9.9 | ✅ fixed, internet works |
 | KL2 `li261-vmKL2` | Kali | dmz0 | 192.168.120.70/24 | 00:50:56:00:24:46 | 192.168.120.4 | 192.168.120.4, 9.9.9.9 | ✅ fixed, internet works |
-| LM1 `li264-vmLM1` | Ubuntu 26.04 | lan0 | 192.168.110.60/24 | `:3d` or `:3e` | 192.168.110.1 (banner) | 192.168.110.1 (banner) | ⚠️ gateway wrong, not fixed yet |
-| LM2 `li264-vmLM2` | Ubuntu 26.04 | dmz0 | **192.168.110.60/24 (wrong zone)** | `:3d` or `:3e` | 192.168.110.1 (banner) | 192.168.110.1 (banner) | ❌ wrong subnet, not fixed yet |
+| LM1 `li264-vmLM1` | Ubuntu 26.04 | lan0 | 192.168.110.60/24 | 00:50:56:00:24:3d | 192.168.110.1 (banner) | 192.168.110.1 (banner) | ⚠️ gateway wrong, not fixed yet |
+| LM2 `li264-vmLM2` | Ubuntu 26.04 | dmz0 | **192.168.110.60/24 (wrong zone)**, target 192.168.120.60/24 | 00:50:56:00:24:3e | 192.168.110.1 (banner) | 192.168.110.1 (banner) | ❌ wrong subnet, not fixed yet |
 
 The LM gateway/DNS values come from the login banners. They may not be the live config: KL1's banner showed .1 while its real route pointed at .2.
 
@@ -87,6 +87,8 @@ Screenshots `13` and `14` show both Ubuntu VMs with identical config:
 - **netplan files:** `00-eth0.yaml`, `01-eth1.yaml`
 
 They differ only in their MAC (`…:24:3d` and `…:24:3e`, readable from the IPv6 link-local address). The hostname can't tell them apart, so the test is which one reaches KL1 (192.168.110.70). KL1 only lives in `lan0`, so the VM that gets an answer is LM1. Once identified, set the hostnames to `li264-vmLM1` and `li264-vmLM2`.
+
+**Identified** (screenshots `15`, `16`): the Smartlearn console tabs show the VM name and the attached network. `li264-vmLM1` = MAC `:3d`, attached to `lan0`. `li264-vmLM2` = MAC `:3e`, attached to `dmz0`. So LM2's `eth0` is plugged into `dmz0` but carries a `lan0` address.
 
 ## Firewall (LF1) behaviour
 
