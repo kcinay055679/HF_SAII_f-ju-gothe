@@ -30,3 +30,13 @@ Read from the lecturer's Smartlearn network plan screenshots in [smartlearn-netz
 - firewall rules on LF1: which ports `lan0` → `dmz0` and `dmz0` → `wan0` allows (we need 443 out to GitHub, 443 `lan0` → LM2 for KL1 tests)
 - DNS: internal names like `*.smartlearn.lan` (LM1's hostname is `li264-vmLM1.smartlearn.lan`), and which DNS server LM2 uses
 - whether Mattermost runs on LM2 or somewhere central
+
+## Internet access (what the course material says)
+
+The only network setup guide in `docs/` is `General/eth0 kali konfig.pdf`, four screenshots and no text:
+
+1. On Kali, open "Advanced Network Configuration" (search "netw").
+2. Edit `eth0`, tab IPv4 Settings, Method **Manual**: address `192.168.110.70`, netmask `24`, gateway `192.168.110.2`, DNS `8.8.8.8`.
+3. Save, then in the panel's network menu "Disconnect" `eth0` and connect it again so the settings apply.
+
+So in `lan0` the default gateway, and with it the way to the internet, is `192.168.110.2` (presumably LF1). Nothing in the material covers `dmz0` (LM2, KL2). The Qwen guide only lists "Internetzugriff für Downloads" as a prerequisite.
