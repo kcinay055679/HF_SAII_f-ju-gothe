@@ -1,0 +1,57 @@
+# Project status
+
+Last updated: 2026-11-12
+
+This file owns the project work packages. Each Tag's own checklist lives in its `tagNN_…/README.md`; this file only links to it.
+
+## Work packages
+
+From the team's Grober Ablaufplan (Tag 8). Status: ✅ done · 🟡 partial · ⬜ open
+
+| Nr. | Work package | Status | Where we stand |
+| --- | --- | --- | --- |
+| 01 | Anforderungen & Planung | ✅ | Ablaufplan submitted on Tag 8, [spec](zeiterfassung-spec.md) written |
+| 02 | Git-Repository aufbauen | 🟡 | Local root repo with the app history imported. No remote yet, no team access |
+| 03 | LM1 vorbereiten | 🟡 | k3d + registry setup works locally. No PostgreSQL, not yet set up on the actual LM1 |
+| 04 | Zeiterfassung entwickeln | 🟡 | App v1.4 (Persons, Actions, Status board). Missing: login, Admin area, PostgreSQL, `/metrics`, structured logs |
+| 05 | Lokal testen | 🟡 | Unit tests + smoke test exist. No Kali GUI/security tests |
+| 06 | Push/Pull & CI aufbauen | ⬜ | |
+| 07 | Images in Registry speichern | 🟡 | Local k3d registry only, no shared registry |
+| 08 | LM2 / Kubernetes bereitstellen | ⬜ | Waiting on the Smartlearn project environment details |
+| 09 | Deployment durchführen (Argo CD) | ⬜ | |
+| 10 | Kundenseitige Tests | ⬜ | |
+| 11 | Monitoring einrichten | ⬜ | |
+| 12 | Alerting & Mattermost | ⬜ | |
+| 13 | Gesamttest & Übergabe | ⬜ | |
+
+## Open Abgaben
+
+| Tag | Abgabe | Details |
+| --- | --- | --- |
+| 08 | Datenflussplan | [tag08](tag08_2026-10-30/README.md) |
+| 08 | Netzwerkplan v1 as `.drawio` + PDF (only the photo exists) | [tag08](tag08_2026-10-30/README.md) |
+| 09 | Recherche: 1 A4 (sketch + text) + video ≤ 2.5 min | [tag09](tag09_2026-11-06/README.md) |
+| 09 | Revised Datenflussplan `.drawio` | [tag09](tag09_2026-11-06/README.md) |
+| 09 | Netzwerkplan v2 as `.drawio` (source lost, must be regenerated) | [tag09](tag09_2026-11-06/README.md) |
+
+## Open decisions
+
+- Container port: 5000 (team plans, submitted network plan) vs 8080 (app v1.4). See [LEARNINGS](LEARNINGS.md).
+- Cluster on LM1/LM2: k3d (ADR-0001) vs whatever the Smartlearn project environment provides.
+- Git remote / registry product: decided once it's known what Argo CD on LM2 can reach.
+- ELK vs Loki for logs, depends on LM2 memory.
+
+## Roadmap
+
+The two module plans disagree, and the slides number days differently again. Dates are reliable, numbers are not. A `tagNN_…` folder is only created once that day's slides are there.
+
+| Date | Modulplan SAII HS2026 | Modulplan A&C (topic) |
+| --- | --- | --- |
+| 13.11.2026 | Integration Mattermost in ELK (remote) | Metrics, SLOs & Grafana: 3 PromQL queries, dashboard, SLO, test alert |
+| 20.11.2026 | Save your Integration (ZeroTrust), Abgabe Härtungsmassnahmen | Logs, Traces & Correlation: saved search, root-cause timeline |
+| 27.11.2026 | Rückblick Härtung, Härtung implementieren (remote) | Incident Response & Mattermost: down → Mattermost → resolved, incident report, runbook |
+| 04.12.2026 | Test 2 / Reserve | Policy-as-Code & Resilience: policy, restore, risk list |
+| 11.12.2026 | Weihnachtsapéro | Test 2 & Projekt-Gate (RAG status) |
+| 18.12.2026 | Finaler Input Dokumentation (remote) | Dokumentation & Übergabe, cross-team test |
+| 09.01.2027 | Abgabe Projekt | Projektabgabe, live acceptance + failure challenge |
+| 16.01.2027 | Abschluss, Notenrückgabe | Abschluss & Transfer |
