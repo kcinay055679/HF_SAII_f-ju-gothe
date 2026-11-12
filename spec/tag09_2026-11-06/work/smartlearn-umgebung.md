@@ -1,5 +1,7 @@
 # Smartlearn project environment "Projekt SAII HS2026"
 
+Day log of how we found things out. The consolidated, current facts are in [spec/NETWORK.md](../../NETWORK.md).
+
 Read from the lecturer's Smartlearn network plan screenshots in [smartlearn-netzwerkplan/](smartlearn-netzwerkplan/) (2026-11-12). The screenshots show names and zones only, no IPs.
 
 ## Zones and machines

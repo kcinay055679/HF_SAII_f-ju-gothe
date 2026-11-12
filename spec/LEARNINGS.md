@@ -2,6 +2,10 @@
 
 Things we noticed along the way. Newest first. Each entry names the Tag it came up on and what it affects.
 
+## 2026-11-12 · Tag 09 · The VM gateway is LF1 on .4, not .1 or .2
+
+No VM had internet because every one pointed at a gateway that doesn't exist (.1 from the banner, .2 from the Kali guide). LF1 answers on 192.168.110.4 and 192.168.120.4. Also, both Ubuntu VMs had 192.168.110.60, so LM2 sits in the wrong zone. Problem, fix and IP plan: [NETWORK.md](NETWORK.md).
+
 ## 2026-11-12 · Tag 09 · The Smartlearn environment has a firewall and a DMZ
 
 The lecturer's Smartlearn plan has three zones: `lan0` (LM1, KL1), `dmz0` (LM2, KL2) and `wan0`. Firewall `if229-vmLF1` connects them. Network plan v2 drew no firewall and no KL2. Every cross-zone flow (LM1 → GitHub, LM2 → GitHub/registry, KL1 → LM2) needs an opening on LF1. The IPs are not on the plan. Details: [tag09 work](tag09_2026-11-06/work/smartlearn-umgebung.md).
