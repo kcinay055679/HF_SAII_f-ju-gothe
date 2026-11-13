@@ -41,11 +41,13 @@ SLO example from the slides (Zeiterfassung): availability SLI = successful healt
 
 ## Status
 
-- [ ] Monitoring stack running on LM2 (Docker Compose, as in the demo)
-- [ ] Target `lm2-node` UP (screenshot)
-- [ ] Dashboard: RAM %, RAM history, RAM load test observed (screenshot)
-- [ ] CPU panel + CPU alert rule
-- [ ] One more metric (proposal: root filesystem free %) + alert rule + runbook
+- [x] Monitoring stack running on LM2: `docker-compose.yml` at the root of the app repo runs the app (v1.5) + Prometheus + Node Exporter + Grafana, cloned to `~/SAII_Zeiterfassung` on LM2. Docker 29.1.3 from the Ubuntu repos
+- [x] Targets `lm2-node`, `prometheus`, `zeiterfassung` UP (verified via API)
+- [ ] Screenshot: Prometheus targets UP
+- [ ] Screenshot: dashboard with RAM %, RAM history during a RAM load test
+- [x] CPU panel + alert `LM2HighCpuUsage`
+- [x] Extra metric root filesystem free % + alert `LM2RootFilesystemLow` + runbook
+- [x] Beyond the Auftrag: app `/metrics`, app panels (requests, 5xx, p95 of `/stamp`) and alerts `ZeiterfassungDown`, `ZeiterfassungHighErrorRate`, `ZeiterfassungSlowStamps` (latency SLO from the slides), one German runbook per alert in `monitoring/runbooks/`
 - [ ] Monitoring definition: metrics and logs per system (LM2, app, Kali, …)
 - [ ] Container architecture diagram
 - [ ] Network plan v4 with the monitoring ports (3000, 9090, 9100)
@@ -62,3 +64,5 @@ Drafts go to [`work/`](work/).
 ## Erkenntnisse
 
 - Slides install monitoring with Docker Compose on LM2, our plan has it as IaC on Kubernetes: see [LEARNINGS](../LEARNINGS.md).
+- URLs (over Tailscale): Grafana `http://192.168.120.60:3000` (admin / `saii-demo`), Prometheus `http://192.168.120.60:9090/targets`, app `http://192.168.120.60:8080`.
+- RAM load test from the demo README: `docker run --rm --memory=512m python:3.12-alpine python -c "import time; x=bytearray(400*1024*1024); time.sleep(120)"` on LM2. With 15 GiB RAM it moves the gauge by only ~3 %.

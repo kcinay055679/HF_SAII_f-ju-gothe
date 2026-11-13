@@ -13,14 +13,14 @@ From the team's Grober Ablaufplan (Tag 8). Status: ✅ done · 🟡 partial · �
 | 01 | Anforderungen & Planung | ✅ | Ablaufplan submitted on Tag 8, [spec](zeiterfassung-spec.md) written |
 | 02 | Git-Repository aufbauen | 🟡 | Project repo `HF_SAII_f-ju-gothe` + app/IaC repo `SAII_Zeiterfassung` as submodule (ADR-0007). Cloned on LM1 (`~/workspace/HF_SAII_f-ju-gothe`, read-only over HTTPS). Team members still need write access to both |
 | 03 | LM1 vorbereiten | 🟡 | k3d + registry setup works locally. No PostgreSQL, not yet set up on the actual LM1 |
-| 04 | Zeiterfassung entwickeln | 🟡 | App v1.4 (Persons, Actions, Status board). Missing: login, Admin area, PostgreSQL, `/metrics`, structured logs |
+| 04 | Zeiterfassung entwickeln | 🟡 | App v1.5 (Persons, Actions, Status board, `/metrics`). Missing: login, Admin area, PostgreSQL, structured logs |
 | 05 | Lokal testen | 🟡 | Unit tests + smoke test exist. No Kali GUI/security tests |
 | 06 | Push/Pull & CI aufbauen | ⬜ | |
 | 07 | Images in Registry speichern | 🟡 | Local k3d registry only, no shared registry |
-| 08 | LM2 / Kubernetes bereitstellen | ⬜ | LM2 network ready (192.168.120.60, internet, SSH via Tailscale). Only 1 vCPU, see [NETWORK.md](NETWORK.md). Kubernetes not installed yet |
+| 08 | LM2 / Kubernetes bereitstellen | 🟡 | LM2 network ready (192.168.120.60, internet, SSH via Tailscale). Only 1 vCPU, see [NETWORK.md](NETWORK.md). Docker installed, app runs via Compose. Kubernetes not installed yet |
 | 09 | Deployment durchführen (Argo CD) | ⬜ | |
 | 10 | Kundenseitige Tests | ⬜ | |
-| 11 | Monitoring einrichten | ⬜ | Tag 10: lecturer's Compose stack (Prometheus, Node Exporter, Grafana) to install on LM2, see [tag10](tag10_2026-11-13/README.md) |
+| 11 | Monitoring einrichten | 🟡 | Docker Compose on LM2 from the app repo: app v1.5 with `/metrics`, Prometheus, Node Exporter, Grafana, 7 alert rules with runbooks ([tag10](tag10_2026-11-13/README.md)). No Alertmanager, no logs, not yet on Kubernetes |
 | 12 | Alerting & Mattermost | ⬜ | |
 | 13 | Gesamttest & Übergabe | ⬜ | |
 

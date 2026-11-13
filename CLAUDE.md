@@ -56,6 +56,8 @@ make scan      # Trivy, HIGH/CRITICAL
 make status    # pods/svc/pvc/ingress of both namespaces
 make docs      # build docs/abgabe.pdf from abgabe.typ (Typst container)
 make clean     # deletes cluster AND registry, all data lost
+make up        # test, then docker compose: app :8080 + Prometheus :9090 + node exporter :9100 + Grafana :3000 (how LM2 runs today)
+make down      # stop the compose stack, keeps volumes
 ```
 
 Single test, on the host with a venv (`pip install -r requirements.txt -r requirements-dev.txt`):
@@ -66,7 +68,7 @@ cd zeiterfassung/app && python -m pytest tests/test_app.py::test_health_reports_
 
 Render manifests without applying: `kubectl kustomize deploy/zeiterfassung/overlays/dev` (or `prod`).
 
-`VERSION` in the Makefile, `APP_VERSION` in the Dockerfile and the image tags in the overlays must be bumped together on a release.
+`VERSION` in the Makefile, `APP_VERSION` in the Dockerfile, the image tags in the overlays and base deployment, and the image tag + build arg in `docker-compose.yml` must be bumped together on a release.
 
 ## App architecture
 
@@ -78,6 +80,7 @@ Render manifests without applying: `kubectl kustomize deploy/zeiterfassung/overl
   - dev: 1 replica, NodePort 30080, imported image, ns `zeiterfassung-dev`
   - prod: 3 replicas, ClusterIP + Traefik Ingress, registry image, ns `zeiterfassung-prod`
 - Prod's 3 replicas share one RWO `local-path` PVC. That only works because the cluster has a single node (ADR-0001, ADR-0002). Don't add k3d agents without changing storage.
+- `docker-compose.yml` + `monitoring/` (Prometheus config, alert rules, Grafana provisioning, German runbooks) run the app with monitoring without Kubernetes. That is the current LM2 setup (clone in `~/SAII_Zeiterfassung`). `/metrics` exposes `http_requests_total` and `http_request_duration_seconds` labelled by route template.
 - `deploy/README.md` lists the planned IaC folders (`argocd/`, `monitoring/`, `logging/`, `policies/`, `backup/`). CI must path-filter on `app/**`, so image-tag bumps in `deploy/` don't retrigger builds.
 - The course material uses minikube. `zeiterfassung/README.md` has the minikube → k3d command mapping and the rootless Docker workarounds, which the Makefile auto-detects.
 
@@ -87,7 +90,7 @@ The app was built for the Tag 4/5 Auftrag. The customer project still needs:
 - login and an Admin area (ADR-0004 currently says no auth)
 - PostgreSQL instead of SQLite
 - the LM1/LM2 split
-- `/metrics`, structured logs
+- structured logs
 - CI, Argo CD, NetworkPolicies
 - Mattermost alerting
 
