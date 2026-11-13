@@ -51,7 +51,7 @@ Access and config:
 | --- | --- | --- |
 | lan0 → internet | LM1 push to GitHub, package installs | ✅ verified |
 | dmz0 → internet | Argo CD on LM2 reading GitHub, image pull from the registry | ✅ verified |
-| lan0 → dmz0 | KL1 tests against the Ingress on LM2, SSH into dmz0 | ✅ verified (ICMP, SSH 22). 443 untested until something listens on LM2 |
+| lan0 → dmz0 | KL1 tests against the Ingress on LM2, SSH into dmz0 | ✅ verified (ICMP, SSH 22; 13.11.: TCP 8080, 9090, 9100, 3000 to LM2 from the laptop via KL1). 443 untested until the Ingress runs on LM2 |
 | dmz0 → lan0 | not needed | ✅ verified blocked: LM2 can't ping KL1 or open LM1:22 |
 | internet → dmz0 | not needed for the course | no port forwarding |
 

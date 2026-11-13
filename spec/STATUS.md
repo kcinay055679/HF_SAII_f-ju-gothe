@@ -31,7 +31,7 @@ From the team's Grober Ablaufplan (Tag 8). Status: ✅ done · 🟡 partial · �
 | 08 | Datenflussplan: ready in abgaben/tag09, to hand in via Teams | [tag08](tag08_2026-10-30/README.md) |
 | 09 | Recherche: A4 ready in abgaben; video still to record | [tag09](tag09_2026-11-06/README.md) |
 | 09 | Datenflussplan + Netzwerkplan v3: ready in abgaben, to hand in via Teams | [tag09](tag09_2026-11-06/README.md) |
-| 10 | Monitoring on LM2 (evidence + runbook), container architecture, monitoring definition | [tag10](tag10_2026-11-13/README.md) |
+| 10 | Nachweis, Monitoring-Definition, Runbooks, Containerarchitektur, Netzwerkplan v4: ready in abgaben, to hand in via the Tag 10 Teams folder | [tag10](tag10_2026-11-13/README.md) |
 
 ## Open decisions
 

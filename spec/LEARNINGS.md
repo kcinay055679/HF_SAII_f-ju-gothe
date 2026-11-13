@@ -2,6 +2,14 @@
 
 Things we noticed along the way. Newest first. Each entry names the Tag it came up on and what it affects.
 
+## 2026-11-13 · Tag 10 · CPU load on LM2 breaks the latency SLO
+
+During the Tag 10 load test (4 GB RAM plus one `yes` process on the single vCPU), the p95 of `POST /stamp` rose from a few ms to 1.4–1.6 s, three times the 500 ms SLO, and `ZeiterfassungSlowStamps` went to pending. RAM load alone did nothing. Any CPU-heavy neighbour on LM2 (Elasticsearch, Argo CD, a build) will hit Persons directly. Arguments for: more vCPUs from the lecturer, Loki instead of ELK, CPU requests/limits once on Kubernetes.
+
+## 2026-11-13 · Tag 10 · Screenshots without a person at the browser
+
+Grafana and Prometheus screenshots can be taken from the laptop with the Playwright container (`mcr.microsoft.com/playwright/python`, `pip install playwright` inside, `--network host`, Tailscale route to dmz0). Set `timezone_id="Europe/Zurich"`, otherwise the time axes are in UTC. On 1 vCPU, a full CPU load shows only ~50 % at first because the query averages `rate()` over 5 minutes. A ratio panel like the 5xx rate shows "No data" instead of 0 % while there are no errors; `or vector(0)` fixes it.
+
 ## 2026-11-13 · Tag 10 · Slides run monitoring as Docker Compose on LM2
 
 The Tag 10 demo installs Prometheus, Node Exporter and Grafana with `docker compose` directly on LM2 (ports 9090, 9100, 3000, `:latest` images, admin password `saii-demo`). Our plan has monitoring as IaC under `deploy/monitoring/` on Kubernetes, deployed by Argo CD. Recommendation: use the Compose stack for the Tag 10 evidence, keep the Kubernetes variant as the target and decide it with the cluster choice. Also: only port 22 from lan0 to dmz0 is verified so far, so reaching 3000/9090 from KL1 is untested. The SAII module plan said "Mattermost in ELK" for 13.11; the slides matched the A&C plan (Metrics, SLOs, Grafana).

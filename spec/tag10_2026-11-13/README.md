@@ -43,19 +43,26 @@ SLO example from the slides (Zeiterfassung): availability SLI = successful healt
 
 - [x] Monitoring stack running on LM2: `docker-compose.yml` at the root of the app repo runs the app (v1.5) + Prometheus + Node Exporter + Grafana, cloned to `~/SAII_Zeiterfassung` on LM2. Docker 29.1.3 from the Ubuntu repos
 - [x] Targets `lm2-node`, `prometheus`, `zeiterfassung` UP (verified via API)
-- [ ] Screenshot: Prometheus targets UP
-- [ ] Screenshot: dashboard with RAM %, RAM history during a RAM load test
+- [x] Screenshots (taken by Claude with headless Chromium over Tailscale, 13.11.): targets UP, dashboard under RAM + CPU load, alert `LM2NodeDown` pending → firing → resolved, dashboard afterwards. Combined in `Nachweis_Monitoring_LM2.pdf`, raw PNGs in `nachweise/`
 - [x] CPU panel + alert `LM2HighCpuUsage`
 - [x] Extra metric root filesystem free % + alert `LM2RootFilesystemLow` + runbook
 - [x] Beyond the Auftrag: app `/metrics`, app panels (requests, 5xx, p95 of `/stamp`) and alerts `ZeiterfassungDown`, `ZeiterfassungHighErrorRate`, `ZeiterfassungSlowStamps` (latency SLO from the slides), one German runbook per alert in `monitoring/runbooks/`
-- [ ] Monitoring definition: metrics and logs per system (LM2, app, Kali, …)
-- [ ] Container architecture diagram
-- [ ] Network plan v4 with the monitoring ports (3000, 9090, 9100)
+- [x] Monitoring definition (SLI/SLO, metrics and logs per system incl. Kali, dashboard, alerts, open points): `Monitoring_Definition.pdf`, source `work/monitoring-definition.typ`
+- [x] Runbooks for all 7 alerts: `Runbooks.pdf`, generated from `zeiterfassung/monitoring/runbooks/` by `work/runbooks-to-typst.py`
+- [x] Container architecture (Ist: Compose on LM2, Ziel: Kubernetes namespaces): `.drawio` + PDF, source [`spec/diagrams/container-architektur.drawio`](../diagrams/container-architektur.drawio)
+- [x] Network plan v4 (monitoring running, ports 8080/9090/9100/3000 verified lan0 → dmz0): `.drawio` + PDF
 - [ ] Tag 10 folder in Teams created and filled
 
 ## Ergebnisse
 
-[`abgaben/tag10_2026-11-13/`](../../abgaben/tag10_2026-11-13/) (created once there is something to hand in)
+[`abgaben/tag10_2026-11-13/`](../../abgaben/tag10_2026-11-13/)
+
+- `f_you_goethe_26a_SAII_Nachweis_Monitoring_LM2.pdf` + `nachweise/*.png`: Your-turn evidence
+- `f_you_goethe_26a_SAII_Monitoring_Definition.pdf`: what we monitor, metrics vs logs
+- `f_you_goethe_26a_SAII_Runbooks.pdf`: one runbook per alert
+- `f_you_goethe_26a_SAII_Containerarchitektur.drawio` + `.pdf`
+- `f_you_goethe_26a_SAII_Netzwerkplan_v4.drawio` + `.pdf`
+- nothing handed in via Teams yet
 
 ## Working files
 
