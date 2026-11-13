@@ -1,6 +1,6 @@
 # Project status
 
-Last updated: 2026-11-12
+Last updated: 2026-11-13
 
 This file owns the project work packages. Each Tag's own checklist lives in its `tagNN_…/README.md`; this file only links to it.
 
@@ -20,7 +20,7 @@ From the team's Grober Ablaufplan (Tag 8). Status: ✅ done · 🟡 partial · �
 | 08 | LM2 / Kubernetes bereitstellen | ⬜ | LM2 network ready (192.168.120.60, internet, SSH via Tailscale). Only 1 vCPU, see [NETWORK.md](NETWORK.md). Kubernetes not installed yet |
 | 09 | Deployment durchführen (Argo CD) | ⬜ | |
 | 10 | Kundenseitige Tests | ⬜ | |
-| 11 | Monitoring einrichten | ⬜ | |
+| 11 | Monitoring einrichten | ⬜ | Tag 10: lecturer's Compose stack (Prometheus, Node Exporter, Grafana) to install on LM2, see [tag10](tag10_2026-11-13/README.md) |
 | 12 | Alerting & Mattermost | ⬜ | |
 | 13 | Gesamttest & Übergabe | ⬜ | |
 
@@ -31,12 +31,14 @@ From the team's Grober Ablaufplan (Tag 8). Status: ✅ done · 🟡 partial · �
 | 08 | Datenflussplan: ready in abgaben/tag09, to hand in via Teams | [tag08](tag08_2026-10-30/README.md) |
 | 09 | Recherche: A4 ready in abgaben; video still to record | [tag09](tag09_2026-11-06/README.md) |
 | 09 | Datenflussplan + Netzwerkplan v3: ready in abgaben, to hand in via Teams | [tag09](tag09_2026-11-06/README.md) |
+| 10 | Monitoring on LM2 (evidence + runbook), container architecture, monitoring definition | [tag10](tag10_2026-11-13/README.md) |
 
 ## Open decisions
 
 - Cluster on LM1/LM2: k3d (ADR-0001) vs whatever the Smartlearn project environment provides.
 - Registry product, and whether Argo CD on LM2 can reach GitHub.
 - ELK vs Loki for logs, depends on LM2 memory.
+- Monitoring on LM2: Docker Compose as in the Tag 10 demo, or Kubernetes (kube-prometheus-stack via Argo CD from `deploy/monitoring/`).
 
 ## Roadmap
 
@@ -44,7 +46,7 @@ The two module plans disagree, and the slides number days differently again. Dat
 
 | Date | Modulplan SAII HS2026 | Modulplan A&C (topic) |
 | --- | --- | --- |
-| 13.11.2026 | Integration Mattermost in ELK (remote) | Metrics, SLOs & Grafana: 3 PromQL queries, dashboard, SLO, test alert |
+| 13.11.2026 (Tag 10, slides matched A&C) | Integration Mattermost in ELK (remote) | Metrics, SLOs & Grafana: 3 PromQL queries, dashboard, SLO, test alert |
 | 20.11.2026 | Save your Integration (ZeroTrust), Abgabe Härtungsmassnahmen | Logs, Traces & Correlation: saved search, root-cause timeline |
 | 27.11.2026 | Rückblick Härtung, Härtung implementieren (remote) | Incident Response & Mattermost: down → Mattermost → resolved, incident report, runbook |
 | 04.12.2026 | Test 2 / Reserve | Policy-as-Code & Resilience: policy, restore, risk list |

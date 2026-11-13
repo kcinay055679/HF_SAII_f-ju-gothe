@@ -2,6 +2,10 @@
 
 Things we noticed along the way. Newest first. Each entry names the Tag it came up on and what it affects.
 
+## 2026-11-13 · Tag 10 · Slides run monitoring as Docker Compose on LM2
+
+The Tag 10 demo installs Prometheus, Node Exporter and Grafana with `docker compose` directly on LM2 (ports 9090, 9100, 3000, `:latest` images, admin password `saii-demo`). Our plan has monitoring as IaC under `deploy/monitoring/` on Kubernetes, deployed by Argo CD. Recommendation: use the Compose stack for the Tag 10 evidence, keep the Kubernetes variant as the target and decide it with the cluster choice. Also: only port 22 from lan0 to dmz0 is verified so far, so reaching 3000/9090 from KL1 is untested. The SAII module plan said "Mattermost in ELK" for 13.11; the slides matched the A&C plan (Metrics, SLOs, Grafana).
+
 ## 2026-11-12 · Tag 09 · The LMs have only 1 vCPU
 
 LM1 and LM2 have 1 vCPU, 15 GiB RAM, 63 GB disk each. The full stack on LM2 (Kubernetes, Argo CD, Prometheus, Grafana, ELK, app) will be CPU-bound. Prefer lightweight choices (k3s, Loki over ELK, small replica counts), or ask the lecturer for more vCPUs.
